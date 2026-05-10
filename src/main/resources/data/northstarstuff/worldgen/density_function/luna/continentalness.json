@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:mul",
+      "argument1": {
+        "type": "minecraft:noise",
+        "noise": "northstarstuff:luna/continentalness",
+        "xz_scale": 1,
+        "y_scale": 1
+      },
+      "argument2": 1
+    },
+    "argument2": {
+      "type": "minecraft:mul",
+      "argument1": {
+        "type": "minecraft:noise",
+        "noise": "northstarstuff:luna/continentalness_large",
+        "xz_scale": 1,
+        "y_scale": 1
+      },
+      "argument2": 2
+    }
+  }
+}

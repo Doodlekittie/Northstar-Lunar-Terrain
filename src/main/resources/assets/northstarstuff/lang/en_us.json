@@ -1,0 +1,13 @@
+{
+  "itemGroup.northstarstuff": "Example Mod Tab",
+  "block.northstarstuff.example_block": "Example Block",
+  "item.northstarstuff.example_item": "Example Item",
+
+  "northstarstuff.configuration.title": "Northstar Stuff Configs",
+  "northstarstuff.configuration.section.northstarstuff.common.toml": "Northstar Stuff Configs",
+  "northstarstuff.configuration.section.northstarstuff.common.toml.title": "Northstar Stuff Configs",
+  "northstarstuff.configuration.items": "Item List",
+  "northstarstuff.configuration.logDirtBlock": "Log Dirt Block",
+  "northstarstuff.configuration.magicNumberIntroduction": "Magic Number Text",
+  "northstarstuff.configuration.magicNumber": "Magic Number"
+}
