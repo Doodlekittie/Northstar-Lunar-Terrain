@@ -33,32 +33,16 @@
   },
   "spawn_costs": {},
   "carvers": {
-    "air": [
-      "minecraft:cave_extra_underground",
-      "minecraft:cave"
-    ]
+    "air": []
   },
   "features": [
     [],
     [
-      "northstar:moon_andesite_blob",
       "northstar:moon_ore_titanium",
-      "northstar:moon_ore_copper",
-      "northstar:moon_ore_diamond",
-      "northstar:moon_ore_gold",
       "northstar:moon_ore_iron",
       "northstar:moon_ore_iron_large",
-      "northstar:moon_ore_lapis",
-      "northstar:moon_ore_redstone",
-      "northstar:moon_ore_zinc",
-      "northstar:moon_basalt_blob",
-      "northstar:moon_blackstone_blob",
-      "northstar:moon_asurine_blob",
       "northstar:lunar_sapphire_geode",
       "northstar:frost_sparse"
-    ],
-    [
-      "northstar:moon_ore_glowstone"
     ]
   ]
 }
