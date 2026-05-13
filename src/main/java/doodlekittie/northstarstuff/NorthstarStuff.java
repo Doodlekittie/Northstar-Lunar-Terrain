@@ -1,36 +1,20 @@
 package doodlekittie.northstarstuff;
 
-import doodlekittie.northstarstuff.noise.CircleNoise;
+import com.mojang.serialization.MapCodec;
 import doodlekittie.northstarstuff.registry.ModRegistries;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
-import net.neoforged.neoforge.registries.*;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.level.levelgen.DensityFunction;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(NorthstarStuff.MODID)
@@ -39,6 +23,10 @@ public class NorthstarStuff {
     public static final String MODID = "northstarstuff";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
+
+    public static final DeferredRegister<MapCodec<? extends DensityFunction>> DENSITY_FUNCTIONS =
+            DeferredRegister.create(Registries.DENSITY_FUNCTION_TYPE, MODID);
+
     // Create a Deferred Register to hold Blocks which will all be registered under the "northstarstuff" namespace
 //    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
 //    // Create a Deferred Register to hold Items which will all be registered under the "northstarstuff" namespace
@@ -107,8 +95,8 @@ public class NorthstarStuff {
 //        LOGGER.info("HELLO from server starting");
 //    }
 
-    @SubscribeEvent
-    public static void registerRegistries(NewRegistryEvent event) {
-        event.register(CIRCLE_NOISE_REGISTRY);
-    }
+//    @SubscribeEvent
+//    public static void registerRegistries(NewRegistryEvent event) {
+//        event.register(CIRCLE_NOISE_REGISTRY;
+//    }
 }

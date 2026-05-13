@@ -1,6 +1,7 @@
 package doodlekittie.northstarstuff.registry;
 
-import doodlekittie.northstarstuff.noise.CircleNoise;
+import doodlekittie.northstarstuff.worldgen.noise.CircleNoise;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
