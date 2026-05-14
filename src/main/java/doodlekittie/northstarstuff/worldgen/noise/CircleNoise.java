@@ -9,21 +9,25 @@ import org.apache.commons.codec.digest.MurmurHash3;
 import static doodlekittie.northstarstuff.registry.ModRegistries.CIRCLE_NOISE_REGISTRY_KEY;
 
 public class CircleNoise {
-    private final NoiseParameters parameters;
-    private final int max_radius;
+    private final Holder<NoiseParameters> parameters;
+    private int max_radius;
     private final long seed;
 
-    public CircleNoise(NoiseParameters parameters, long seed) {
+    public CircleNoise(Holder<NoiseParameters> parameters, long seed) {
         this.parameters = parameters;
         this.seed = seed;
-        this.max_radius = (int) Math.pow(2, this.parameters.scale);
+        this.max_radius = 0;
     }
 
-    public double getValue(int x, int y){
+    public double getValue(int x, int y) {
+        if (max_radius == 0) {
+            this.max_radius = (int) Math.pow(2, this.parameters.value().scale);
+        }
+
         var currentValue = 0.0;
         var currentValueX = 0;
         var currentValueY = 0;
-        var threshold = 1 - (1f / (100 * parameters.rarity));
+        var threshold = 1 - (1f / (100 * parameters.value().rarity));
         var match = false;
 
         for (var pX = x - max_radius; pX <=  x + max_radius; pX++) {
@@ -56,7 +60,6 @@ public class CircleNoise {
 
     public double getCircleValue(int x, int y) {
         var hash = MurmurHash3.hash32(((long) x << 32) + (long) y, seed);
-        System.out.println("------------------------- Seed: " + seed);
         return Math.abs((float) hash / Integer.MAX_VALUE);
     }
 

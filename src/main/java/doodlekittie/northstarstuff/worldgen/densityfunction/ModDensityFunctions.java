@@ -11,7 +11,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import net.minecraft.world.level.levelgen.synth.BlendedNoise;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
@@ -35,25 +34,24 @@ public class ModDensityFunctions {
         public static final KeyDispatchDataCodec<CircleNoiseDF> CODEC = KeyDispatchDataCodec.of(
                 RecordCodecBuilder.mapCodec(instance -> instance.group(
                 RegistryFileCodec.create(CIRCLE_NOISE_REGISTRY_KEY, CircleNoise.NoiseParameters.DIRECT_CODEC)
-                        .xmap(Holder::value, Holder::direct)
                         .fieldOf("noise").forGetter(CircleNoiseDF::noiseParameters)
                 ).apply(instance, CircleNoiseDF::new))
         );
 
-        private final CircleNoise.NoiseParameters noiseParameters;
+        private final Holder<CircleNoise.NoiseParameters> noiseParameters;
         private final CircleNoise noise;
 
-        public CircleNoiseDF(CircleNoise.NoiseParameters parameters) {
-            this(new XoroshiroRandomSource(0), parameters);
+        public CircleNoiseDF(Holder<CircleNoise.NoiseParameters> parametersHolder) {
+            this(new XoroshiroRandomSource(0), parametersHolder);
         }
 
-        public CircleNoiseDF(RandomSource random, CircleNoise.NoiseParameters parameters) {
+        public CircleNoiseDF(RandomSource random, Holder<CircleNoise.NoiseParameters> parametersHolder) {
             super(random, 0, 0, 0, 0, 0);
-            this.noise = new CircleNoise(parameters, random.nextLong());
-            this.noiseParameters = parameters;
+            this.noise = new CircleNoise(parametersHolder, random.nextLong());
+            this.noiseParameters = parametersHolder;
         }
 
-        public CircleNoise.NoiseParameters noiseParameters() {
+        public Holder<CircleNoise.NoiseParameters> noiseParameters() {
             return noiseParameters;
         }
 
