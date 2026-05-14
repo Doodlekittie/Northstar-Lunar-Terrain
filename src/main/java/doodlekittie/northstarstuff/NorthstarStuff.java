@@ -58,6 +58,7 @@ public class NorthstarStuff {
     public NorthstarStuff(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(ModRegistries::registerDatapackRegistries);
         ModDensityFunctions.DENSITY_FUNCTION_TYPES.register(modEventBus);
 
         // Register the Deferred Register to the mod event bus so blocks get registered

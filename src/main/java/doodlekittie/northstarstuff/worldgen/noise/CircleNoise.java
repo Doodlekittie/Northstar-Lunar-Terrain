@@ -60,10 +60,6 @@ public class CircleNoise {
         return Math.abs((float) hash / Integer.MAX_VALUE);
     }
 
-    public NoiseParameters parameters() {
-        return this.parameters;
-    }
-
     public record NoiseParameters(int scale, int rarity) {
         public static final Codec<CircleNoise.NoiseParameters> DIRECT_CODEC =
                 RecordCodecBuilder.create(instance -> instance.group(

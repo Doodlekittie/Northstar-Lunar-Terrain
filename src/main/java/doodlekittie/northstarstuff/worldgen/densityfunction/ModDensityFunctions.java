@@ -11,6 +11,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import net.minecraft.world.level.levelgen.synth.BlendedNoise;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
@@ -57,20 +58,25 @@ public class ModDensityFunctions {
         }
 
         @Override
+        public @NotNull BlendedNoise withNewRandom(@NotNull RandomSource random) {
+            return new CircleNoiseDF(random, noiseParameters);
+        }
+
+        @Override
         public double compute(@NotNull FunctionContext functionContext) {
             return noise.getValue(functionContext.blockX(), functionContext.blockZ());
         }
 
-        @Override
-        public void fillArray(double @NotNull [] doubles, @NotNull ContextProvider contextProvider) {
-            contextProvider.fillAllDirectly(doubles, this);
-        }
+//        @Override
+//        public void fillArray(double @NotNull [] doubles, @NotNull ContextProvider contextProvider) {
+//            contextProvider.fillAllDirectly(doubles, this);
+//        }
 
-        @Override
-        @NotNull
-        public DensityFunction mapAll(@NotNull Visitor visitor) {
-            return visitor.apply(this);
-        }
+//        @Override
+//        @NotNull
+//        public DensityFunction mapAll(@NotNull Visitor visitor) {
+//            return visitor.apply(this);
+//        }
 
         @Override
         public double minValue() {

@@ -1,39 +1,46 @@
 {
   "type": "minecraft:add",
   "argument1": {
-    "type": "minecraft:interpolated",
-    "argument": {
-      "type": "minecraft:spline",
-      "spline": {
-        "coordinate": "northstarstuff:luna/continents",
-        "points": [
-          {
-            "location": -1,
-            "value": -1,
-            "derivative": 0
-          },
-          {
-            "location": -0.6,
-            "value": -0.9,
-            "derivative": 0.4
-          },
-          {
-            "location": -0.4,
-            "value": -0.6,
-            "derivative": 0.5
-          },
-          {
-            "location": 0.3,
-            "value": -0.5,
-            "derivative": 0
-          },
-          {
-            "location": 2,
-            "value": 0,
-            "derivative": 0.1
-          }
-        ]
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:interpolated",
+      "argument": {
+        "type": "minecraft:spline",
+        "spline": {
+          "coordinate": "northstarstuff:luna/continents",
+          "points": [
+            {
+              "location": -1,
+              "value": -1,
+              "derivative": 0
+            },
+            {
+              "location": -0.6,
+              "value": -0.9,
+              "derivative": 0.4
+            },
+            {
+              "location": -0.4,
+              "value": -0.6,
+              "derivative": 0.5
+            },
+            {
+              "location": 0.3,
+              "value": -0.5,
+              "derivative": 0
+            },
+            {
+              "location": 2,
+              "value": 0,
+              "derivative": 0.1
+            }
+          ]
+        }
       }
+    },
+    "argument2": {
+      "type": "northstarstuff:circle_noise",
+      "noise": "northstarstuff:test"
     }
   },
   "argument2": 0.5
