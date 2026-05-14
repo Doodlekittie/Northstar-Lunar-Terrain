@@ -11,9 +11,11 @@ import static doodlekittie.northstarstuff.registry.ModRegistries.CIRCLE_NOISE_RE
 public class CircleNoise {
     private final NoiseParameters parameters;
     private final int max_radius;
+    private final long seed;
 
-    public CircleNoise(NoiseParameters parameters) {
+    public CircleNoise(NoiseParameters parameters, long seed) {
         this.parameters = parameters;
+        this.seed = seed;
         this.max_radius = (int) Math.pow(2, this.parameters.scale);
     }
 
@@ -53,8 +55,13 @@ public class CircleNoise {
     }
 
     public double getCircleValue(int x, int y) {
-        var hash = MurmurHash3.hash32(((long) x << 32) + (long) y, 12345L); //TODO: Get world seed
+        var hash = MurmurHash3.hash32(((long) x << 32) + (long) y, seed);
+        System.out.println("------------------------- Seed: " + seed);
         return Math.abs((float) hash / Integer.MAX_VALUE);
+    }
+
+    public NoiseParameters parameters() {
+        return this.parameters;
     }
 
     public record NoiseParameters(int scale, int rarity) {

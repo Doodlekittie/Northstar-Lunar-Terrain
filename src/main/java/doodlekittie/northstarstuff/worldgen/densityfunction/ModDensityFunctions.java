@@ -4,30 +4,56 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import doodlekittie.northstarstuff.worldgen.noise.CircleNoise;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.util.KeyDispatchDataCodec;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.DensityFunction;
+import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
+import net.minecraft.world.level.levelgen.synth.BlendedNoise;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 
+import static doodlekittie.northstarstuff.NorthstarStuff.MODID;
 import static doodlekittie.northstarstuff.registry.ModRegistries.CIRCLE_NOISE_REGISTRY_KEY;
 
 public class ModDensityFunctions {
 
-    protected record CircleNoiseDF(CircleNoise.NoiseParameters parameters, CircleNoise noise) implements DensityFunction {
-        public static final MapCodec<ModDensityFunctions.CircleNoiseDF> DATA_CODEC =
-                RecordCodecBuilder.mapCodec((instance) -> instance.group(
-                                RegistryFileCodec.create(CIRCLE_NOISE_REGISTRY_KEY, CircleNoise.NoiseParameters.DIRECT_CODEC)
-                                        .xmap(Holder::value, Holder::direct)
-                                        .fieldOf("noise").forGetter(CircleNoiseDF::parameters))
-                        .apply(instance, ModDensityFunctions.CircleNoiseDF::new));
-        public static final KeyDispatchDataCodec<ModDensityFunctions.CircleNoiseDF> CODEC;
+    public static final DeferredRegister<MapCodec<? extends DensityFunction>> DENSITY_FUNCTION_TYPES =
+            DeferredRegister.create(Registries.DENSITY_FUNCTION_TYPE, MODID);
 
-        static {
-            CODEC = KeyDispatchDataCodec.of(DATA_CODEC);
-        }
+    public static final DeferredHolder<MapCodec<? extends DensityFunction>, MapCodec<CircleNoiseDF>> CIRCLE_NOISE_DENSITY_FUNCTION_TYPE =
+            DENSITY_FUNCTION_TYPES.register(
+                    "circle_noise",
+                    CircleNoiseDF.CODEC::codec
+            );
+
+    public static class CircleNoiseDF extends BlendedNoise {
+
+        public static final KeyDispatchDataCodec<CircleNoiseDF> CODEC = KeyDispatchDataCodec.of(
+                RecordCodecBuilder.mapCodec(instance -> instance.group(
+                RegistryFileCodec.create(CIRCLE_NOISE_REGISTRY_KEY, CircleNoise.NoiseParameters.DIRECT_CODEC)
+                        .xmap(Holder::value, Holder::direct)
+                        .fieldOf("noise").forGetter(CircleNoiseDF::noiseParameters)
+                ).apply(instance, CircleNoiseDF::new))
+        );
+
+        private final CircleNoise.NoiseParameters noiseParameters;
+        private final CircleNoise noise;
 
         public CircleNoiseDF(CircleNoise.NoiseParameters parameters) {
-            this(parameters, new CircleNoise(parameters));
+            this(new XoroshiroRandomSource(0), parameters);
+        }
+
+        public CircleNoiseDF(RandomSource random, CircleNoise.NoiseParameters parameters) {
+            super(random, 0, 0, 0, 0, 0);
+            this.noise = new CircleNoise(parameters, random.nextLong());
+            this.noiseParameters = parameters;
+        }
+
+        public CircleNoise.NoiseParameters noiseParameters() {
+            return noiseParameters;
         }
 
         @Override

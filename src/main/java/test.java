@@ -2,7 +2,7 @@ import doodlekittie.northstarstuff.worldgen.noise.CircleNoise;
 
 public class test {
     public static void main(String[] args) {
-        var noise = new CircleNoise(new CircleNoise.NoiseParameters(6, 2));
+        var noise = new CircleNoise(new CircleNoise.NoiseParameters(6, 2), 12345L);
         var range = 100;
         for (var x = -range; x <= range; x++) {
             StringBuilder line = new StringBuilder();

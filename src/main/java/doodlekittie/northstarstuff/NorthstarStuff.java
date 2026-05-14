@@ -2,8 +2,10 @@ package doodlekittie.northstarstuff;
 
 import com.mojang.serialization.MapCodec;
 import doodlekittie.northstarstuff.registry.ModRegistries;
+import doodlekittie.northstarstuff.worldgen.densityfunction.ModDensityFunctions;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.DensityFunction;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
 
@@ -24,8 +26,7 @@ public class NorthstarStuff {
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final DeferredRegister<MapCodec<? extends DensityFunction>> DENSITY_FUNCTIONS =
-            DeferredRegister.create(Registries.DENSITY_FUNCTION_TYPE, MODID);
+
 
     // Create a Deferred Register to hold Blocks which will all be registered under the "northstarstuff" namespace
 //    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
@@ -57,6 +58,7 @@ public class NorthstarStuff {
     public NorthstarStuff(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        ModDensityFunctions.DENSITY_FUNCTION_TYPES.register(modEventBus);
 
         // Register the Deferred Register to the mod event bus so blocks get registered
 //        BLOCKS.register(modEventBus);
@@ -68,7 +70,7 @@ public class NorthstarStuff {
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (NorthstarStuff) to respond directly to events.
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
-        NeoForge.EVENT_BUS.register(ModRegistries.class);
+//        NeoForge.EVENT_BUS.register(ModRegistries.class);
 
 //        // Register the item to a creative tab
 //        modEventBus.addListener(this::addCreative);
