@@ -38,10 +38,7 @@
         }
       }
     },
-    "argument2": {
-      "type": "northstarstuff:circle_noise",
-      "noise": "northstarstuff:test"
-    }
+    "argument2": "northstarstuff:luna/craters"
   },
   "argument2": 0.5
 }

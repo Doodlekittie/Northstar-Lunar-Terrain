@@ -2,16 +2,16 @@ package doodlekittie.northstarstuff.worldgen.noise;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.Interner;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import doodlekittie.northstarstuff.util.NorthstarStuffUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.RegistryFileCodec;
 import org.apache.commons.codec.digest.MurmurHash3;
+import org.jspecify.annotations.NonNull;
 
 import java.util.HashSet;
-import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 import static doodlekittie.northstarstuff.registry.ModRegistries.CIRCLE_NOISE_REGISTRY_KEY;
@@ -23,7 +23,8 @@ public class CircleNoise {
     private double threshold;
     private final long seed;
     private boolean activated = false;
-    private final Cache<NorthstarStuffUtil.Coordinate, Cache<NorthstarStuffUtil.Coordinate, Boolean>> craterCentersCache = Caffeine.newBuilder()
+    private final Cache<NorthstarStuffUtil.Coordinate, ConcurrentHashMap.KeySetView<NorthstarStuffUtil.Coordinate, Boolean>>
+            craterCentersCache = Caffeine.newBuilder()
             .expireAfterAccess(1, TimeUnit.MINUTES)
             .build();
 
@@ -37,62 +38,32 @@ public class CircleNoise {
         var params = this.parameters.value();
         maxRadius = (int) Math.pow(2, params.scale);
         partitionSize = maxRadius * 2 + 2;
-        threshold = 1 - (1d / (100 * parameters.value().rarity));
+        threshold = 1 - (1d / (100 * params.rarity));
         activated = true;
     }
 
     public double getValue(int x, int y) {
         if(!activated) { activate(); }
-        var pX = (int) Math.floor((double) x / partitionSize);
-        var pY = (int) Math.floor((double) y / partitionSize);
-        var lX = x - pX;
-        var lY = y - pY;
+        var toCheck = getCoordinates(x, y);
 
-        var halfPartitionSize = partitionSize / 2;
-
-        var oX = lX > halfPartitionSize ? 1 : -1;
-        var oY = lY > halfPartitionSize ? 1 : -1;
-
-        var craterCenters = getPartitionCenters(pX, pY);
-        craterCenters.putAll(getPartitionCenters(pX + oX, pY).asMap());
-        craterCenters.putAll(getPartitionCenters(pX + oX, pY + oY).asMap());
-        craterCenters.putAll(getPartitionCenters(pX, pY + oY).asMap());
 
         var distSquared = Integer.MAX_VALUE;
         var closestCenterX = 0;
         var closestCenterY = 0;
         var match = false;
 
-        for (var center : craterCenters.asMap().keySet()) {
-            var newDistSquared = (int) (Math.pow(center.x(), 2) + Math.pow(center.y(), 2));
-            if (newDistSquared < distSquared) {
-                closestCenterX = center.x();
-                closestCenterY = center.y();
-                distSquared = newDistSquared;
-                match = true;
+        for (var partition : toCheck) {
+            for (var center : getPartitionCenters(partition)) {
+                var newDistSquared = (int) (Math.pow(center.x() - x, 2) + Math.pow(center.y() - y, 2));
+                if (newDistSquared < distSquared) {
+                    closestCenterX = center.x();
+                    closestCenterY = center.y();
+                    distSquared = newDistSquared;
+                    match = true;
+                }
             }
         }
 
-
-//        var currentValue = 0.0;
-//        var currentValueX = 0;
-//        var currentValueY = 0;
-//        var match = false;
-//
-//        for (var pX = x - maxRadius; pX <=  x + maxRadius; pX++) {
-//            for (var pY = y - maxRadius; pY <= y + maxRadius; pY++) {
-//                var value = getCircleValue(pX, pY);
-//                if (value > threshold) {
-//                    if(!match || Math.pow(pX - x, 2) + Math.pow(pY - y, 2) < Math.pow(currentValueX - x, 2) + Math.pow(currentValueY - y, 2)) {
-//                        currentValue = value;
-//                        currentValueX = pX;
-//                        currentValueY = pY;
-//                        match = true;
-//                    }
-//                }
-//            }
-//        }
-//
         if (match) {
             var scale = 1 / (1 - threshold);
             var thisRadius = maxRadius * ((getCircleValue(closestCenterX, closestCenterY) - threshold) * scale / 2 + 0.5);
@@ -100,26 +71,45 @@ public class CircleNoise {
             var dist = Math.sqrt(distSquared);
 
             if (dist <= thisRadius) {
-                return 1f / thisRadius * dist;
+                return 1 - 1 / thisRadius * dist;
             }
         }
         return 0;
     }
 
-    private Cache<NorthstarStuffUtil.Coordinate, Boolean> getPartitionCenters(int pX, int pY) {
-        return craterCentersCache.get(new NorthstarStuffUtil.Coordinate(pX, pY),
-                c -> generatePartitionCenters(pX, pY));
+    private @NonNull HashSet<NorthstarStuffUtil.Coordinate> getCoordinates(int x, int y) {
+        var pX = (int) Math.floor((double) x / partitionSize);
+        var pY = (int) Math.floor((double) y / partitionSize);
+        var lX = x - pX * partitionSize;
+        var lY = y - pY * partitionSize;
+
+        var halfPartitionSize = partitionSize / 2;
+
+        var oX = lX > halfPartitionSize ? 1 : -1;
+        var oY = lY > halfPartitionSize ? 1 : -1;
+
+        var toCheck = new HashSet<NorthstarStuffUtil.Coordinate>();
+        toCheck.add(new NorthstarStuffUtil.Coordinate(pX, pY));
+        toCheck.add(new NorthstarStuffUtil.Coordinate(pX + oX, pY));
+        toCheck.add(new NorthstarStuffUtil.Coordinate(pX + oX, pY + oY));
+        toCheck.add(new NorthstarStuffUtil.Coordinate(pX, pY + oY));
+        return toCheck;
     }
 
-    private Cache<NorthstarStuffUtil.Coordinate, Boolean> generatePartitionCenters(int pX, int pY) {
-        Cache<NorthstarStuffUtil.Coordinate, Boolean> centers = Caffeine.newBuilder().build();
+    private ConcurrentHashMap.KeySetView<NorthstarStuffUtil.Coordinate, Boolean> getPartitionCenters(NorthstarStuffUtil.Coordinate coordinate) {
+        return craterCentersCache.get(new NorthstarStuffUtil.Coordinate(coordinate.x(), coordinate.y()),
+                c -> generatePartitionCenters(c.x(), c.y()));
+    }
+
+    private ConcurrentHashMap.KeySetView<NorthstarStuffUtil.Coordinate, Boolean> generatePartitionCenters(int pX, int pY) {
+        ConcurrentHashMap.KeySetView<NorthstarStuffUtil.Coordinate, Boolean> centers = ConcurrentHashMap.newKeySet();
 
         for (var lX = 0; lX <=  partitionSize; lX++) {
             var x = pX * partitionSize + lX;
             for (var lY = 0; lY <= partitionSize; lY++) {
                 var y = pY * partitionSize + lY;
-                if(getCircleValue(lX, lY) >= threshold) {
-                    centers.put(new NorthstarStuffUtil.Coordinate(x, y), true);
+                if(getCircleValue(x, y) >= threshold) {
+                    centers.add(new NorthstarStuffUtil.Coordinate(x, y));
                 }
             }
         }
