@@ -104,14 +104,17 @@ public class CircleNoise {
     private ConcurrentHashMap.KeySetView<NorthstarStuffUtil.Coordinate, Boolean> generatePartitionCenters(int pX, int pY) {
         ConcurrentHashMap.KeySetView<NorthstarStuffUtil.Coordinate, Boolean> centers = ConcurrentHashMap.newKeySet();
 
+        var nthToCheck = parameters.value().rarity / 10;
         for (var lX = 0; lX <=  partitionSize; lX++) {
-            var x = pX * partitionSize + lX;
-            for (var lY = 0; lY <= partitionSize; lY++) {
-                var y = pY * partitionSize + lY;
-                if(getCircleValue(x, y) >= threshold) {
-                    centers.add(new NorthstarStuffUtil.Coordinate(x, y));
+                var x = pX * partitionSize + lX;
+                for (var lY = 0; lY <= partitionSize; lY++) {
+                    if (lX % nthToCheck == 0) {
+                        var y = pY * partitionSize + lY;
+                        if (getCircleValue(x, y) >= threshold) {
+                            centers.add(new NorthstarStuffUtil.Coordinate(x, y));
+                        }
+                    }
                 }
-            }
         }
         return centers;
     }
