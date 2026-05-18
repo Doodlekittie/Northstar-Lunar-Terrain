@@ -221,7 +221,7 @@
                   "if_true": {
                     "type": "minecraft:biome",
                     "biome_is": [
-                      "northstarstuff:luna/highland"
+                      "northstarstuff:luna/highlands"
                     ]
                   },
                   "then_run": {

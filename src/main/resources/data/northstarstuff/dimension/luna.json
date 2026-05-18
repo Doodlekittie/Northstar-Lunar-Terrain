@@ -21,7 +21,7 @@
           }
         },
         {
-          "biome": "northstarstuff:luna/highland",
+          "biome": "northstarstuff:luna/highlands",
           "parameters": {
             "temperature": 0,
             "humidity": 0,

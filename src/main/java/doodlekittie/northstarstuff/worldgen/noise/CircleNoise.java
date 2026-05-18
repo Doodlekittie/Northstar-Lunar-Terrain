@@ -21,6 +21,7 @@ public class CircleNoise {
     private int maxRadius;
     private int partitionSize;
     private double threshold;
+    private double generalScale;
     private final long seed;
     private boolean activated = false;
     private final Cache<NorthstarStuffUtil.Coordinate, ConcurrentHashMap.KeySetView<NorthstarStuffUtil.Coordinate, Boolean>>
@@ -39,6 +40,7 @@ public class CircleNoise {
         maxRadius = (int) Math.pow(2, params.scale);
         partitionSize = maxRadius * 2 + 2;
         threshold = 1 - (1d / (100 * params.rarity));
+        generalScale = (1 / (1 - threshold));
         activated = true;
     }
 
@@ -46,29 +48,25 @@ public class CircleNoise {
         if(!activated) { activate(); }
         var toCheck = getCoordinates(x, y);
 
-
-        var distSquared = Integer.MAX_VALUE;
-        var closestCenterX = 0;
-        var closestCenterY = 0;
+        var dist = 0;
+        var specificScale = 0d;
         var match = false;
 
         for (var partition : toCheck) {
             for (var center : getPartitionCenters(partition)) {
-                var newDistSquared = (int) (Math.pow(center.x() - x, 2) + Math.pow(center.y() - y, 2));
-                if (newDistSquared < distSquared) {
-                    closestCenterX = center.x();
-                    closestCenterY = center.y();
-                    distSquared = newDistSquared;
+                var newSpecificScale = ((getCircleValue(center.x(), center.y()) - threshold) * generalScale) / 2 + 0.5;
+                var newDist = (int) Math.sqrt(Math.pow(center.x() - x, 2) + Math.pow(center.y() - y, 2));
+
+                if (newDist * newSpecificScale < dist * specificScale) {
+                    specificScale = newSpecificScale;
+                    dist = newDist;
                     match = true;
                 }
             }
         }
 
         if (match) {
-            var scale = 1 / (1 - threshold);
-            var thisRadius = maxRadius * ((getCircleValue(closestCenterX, closestCenterY) - threshold) * scale / 2 + 0.5);
-
-            var dist = Math.sqrt(distSquared);
+            var thisRadius = maxRadius * specificScale;
 
             if (dist <= thisRadius) {
                 return 1 - 1 / thisRadius * dist;
