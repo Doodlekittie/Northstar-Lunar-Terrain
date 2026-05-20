@@ -1,30 +1,34 @@
 {
-  "type": "minecraft:flat_cache",
+
+  "type": "minecraft:interpolated",
   "argument": {
-    "type": "minecraft:mul",
-    "argument1": {
-      "type": "minecraft:add",
+    "type": "minecraft:flat_cache",
+    "argument": {
+      "type": "minecraft:mul",
       "argument1": {
-        "type": "minecraft:mul",
+        "type": "minecraft:add",
         "argument1": {
-          "type": "minecraft:noise",
-          "noise": "northstarstuff:luna/continentalness",
-          "xz_scale": 1,
-          "y_scale": 1
+          "type": "minecraft:mul",
+          "argument1": {
+            "type": "minecraft:noise",
+            "noise": "northstarstuff:luna/continentalness",
+            "xz_scale": 1,
+            "y_scale": 1
+          },
+          "argument2": 0.5
         },
-        "argument2": 1
+        "argument2": {
+          "type": "minecraft:mul",
+          "argument1": {
+            "type": "minecraft:noise",
+            "noise": "northstarstuff:luna/continentalness_large",
+            "xz_scale": 1,
+            "y_scale": 1
+          },
+          "argument2": 2
+        }
       },
-      "argument2": {
-        "type": "minecraft:mul",
-        "argument1": {
-          "type": "minecraft:noise",
-          "noise": "northstarstuff:luna/continentalness_large",
-          "xz_scale": 1,
-          "y_scale": 1
-        },
-        "argument2": 2
-      }
-    },
-    "argument2": 0.7
+      "argument2": 0.7
+    }
   }
 }

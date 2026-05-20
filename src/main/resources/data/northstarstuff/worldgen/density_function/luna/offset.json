@@ -3,8 +3,6 @@
   "argument1": {
     "type": "minecraft:add",
     "argument1": {
-      "type": "minecraft:interpolated",
-      "argument": {
         "type": "minecraft:spline",
         "spline": {
           "coordinate": "northstarstuff:luna/continents",
@@ -36,7 +34,6 @@
             }
           ]
         }
-      }
     },
     "argument2": "northstarstuff:luna/craters"
   },

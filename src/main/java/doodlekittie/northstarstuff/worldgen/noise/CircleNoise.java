@@ -21,10 +21,11 @@ public class CircleNoise {
     private int maxRadius;
     private int partitionSize;
     private double threshold;
+    private int nthToCheck;
     private double generalScale;
     private final long seed;
     private boolean activated = false;
-    private final Cache<NorthstarStuffUtil.Coordinate, ConcurrentHashMap.KeySetView<NorthstarStuffUtil.Coordinate, Boolean>>
+    private final Cache<NorthstarStuffUtil.Coordinate, ConcurrentHashMap<NorthstarStuffUtil.Coordinate, Integer>>
             craterCentersCache = Caffeine.newBuilder()
             .expireAfterAccess(1, TimeUnit.MINUTES)
             .build();
@@ -39,8 +40,10 @@ public class CircleNoise {
         var params = this.parameters.value();
         maxRadius = (int) Math.pow(2, params.scale);
         partitionSize = maxRadius * 2 + 2;
-        threshold = 1 - (1d / (100 * params.rarity));
+        nthToCheck = Math.max(parameters.value().rarity / 10, 1);
+        threshold = 1 - (1d / (10 * params.rarity)) * nthToCheck;
         generalScale = (1 / (1 - threshold));
+
         activated = true;
     }
 
@@ -48,31 +51,24 @@ public class CircleNoise {
         if(!activated) { activate(); }
         var toCheck = getCoordinates(x, y);
 
-        var dist = 0;
-        var specificScale = 0d;
+        var val = 0d;
+
         var match = false;
 
         for (var partition : toCheck) {
-            for (var center : getPartitionCenters(partition)) {
-                var newSpecificScale = ((getCircleValue(center.x(), center.y()) - threshold) * generalScale) / 2 + 0.5;
-                var newDist = (int) Math.sqrt(Math.pow(center.x() - x, 2) + Math.pow(center.y() - y, 2));
+            var partitionCenters = getPartitionCenters(partition);
+            for (var center : partitionCenters.keySet()) {
+                var dist = Math.sqrt(Math.pow(center.x() - x, 2) + Math.pow(center.y() - y, 2));
+                var newVal = Math.max(1 - (dist * 1 / partitionCenters.get(center)), 0);
 
-                if (newDist * newSpecificScale < dist * specificScale) {
-                    specificScale = newSpecificScale;
-                    dist = newDist;
+                if (!match || newVal > val) {
+                    val = newVal;
                     match = true;
                 }
             }
         }
 
-        if (match) {
-            var thisRadius = maxRadius * specificScale;
-
-            if (dist <= thisRadius) {
-                return 1 - 1 / thisRadius * dist;
-            }
-        }
-        return 0;
+        return val;
     }
 
     private @NonNull HashSet<NorthstarStuffUtil.Coordinate> getCoordinates(int x, int y) {
@@ -94,33 +90,34 @@ public class CircleNoise {
         return toCheck;
     }
 
-    private ConcurrentHashMap.KeySetView<NorthstarStuffUtil.Coordinate, Boolean> getPartitionCenters(NorthstarStuffUtil.Coordinate coordinate) {
+    private ConcurrentHashMap<NorthstarStuffUtil.Coordinate, Integer> getPartitionCenters(NorthstarStuffUtil.Coordinate coordinate) {
         return craterCentersCache.get(new NorthstarStuffUtil.Coordinate(coordinate.x(), coordinate.y()),
                 c -> generatePartitionCenters(c.x(), c.y()));
     }
 
-    private ConcurrentHashMap.KeySetView<NorthstarStuffUtil.Coordinate, Boolean> generatePartitionCenters(int pX, int pY) {
-        ConcurrentHashMap.KeySetView<NorthstarStuffUtil.Coordinate, Boolean> centers = ConcurrentHashMap.newKeySet();
+    private ConcurrentHashMap<NorthstarStuffUtil.Coordinate, Integer> generatePartitionCenters(int pX, int pY) {
+        var centers = new ConcurrentHashMap<NorthstarStuffUtil.Coordinate, Integer>();
 
-        var nthToCheck = parameters.value().rarity / 10;
-        for (var lX = 0; lX <=  partitionSize; lX++) {
-                var x = pX * partitionSize + lX;
-                for (var lY = 0; lY <= partitionSize; lY++) {
-                    if (lX % nthToCheck == 0) {
-                        var y = pY * partitionSize + lY;
-                        if (getCircleValue(x, y) >= threshold) {
-                            centers.add(new NorthstarStuffUtil.Coordinate(x, y));
-                        }
+        for (var lX = 0; lX <  partitionSize; lX++) {
+            var x = pX * partitionSize + lX;
+            for (var lY = 0; lY < partitionSize; lY++) {
+                if (lY % nthToCheck == 0) {
+                    var y = pY * partitionSize + lY;
+                    var val = getCircleValue(x, y);
+                    if (val >= threshold) {
+                        var thisRadius = (int) (((val - threshold) * generalScale) / 2 + 0.5) * maxRadius;
+                        centers.put(new NorthstarStuffUtil.Coordinate(x, y), thisRadius);
                     }
                 }
+            }
         }
         return centers;
     }
 
-
+ 
     private double getCircleValue(int x, int y) {
         var hash = MurmurHash3.hash32(((long) x << 32) + (long) y, seed);
-        return Math.abs((float) hash / Integer.MAX_VALUE);
+        return Math.max(Math.abs((float) hash / Integer.MAX_VALUE), 0);
     }
 
     public record NoiseParameters(int scale, int rarity) {
