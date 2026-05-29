@@ -5,7 +5,7 @@
     "spline": {
       "coordinate": {
         "type": "northstarstuff:circle_noise",
-        "noise": "northstarstuff:luna/craters_medium"
+        "noise": "northstarstuff:luna/craters_tiny"
       },
       "points": [
         {
@@ -31,5 +31,5 @@
       ]
     }
   },
-  "argument2": 0.1
+  "argument2": 0.03
 }

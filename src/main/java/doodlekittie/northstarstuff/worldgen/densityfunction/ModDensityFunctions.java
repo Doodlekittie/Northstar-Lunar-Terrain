@@ -65,16 +65,16 @@ public class ModDensityFunctions {
             return noise.getValue(functionContext.blockX(), functionContext.blockZ());
         }
 
-//        @Override
-//        public void fillArray(double @NotNull [] doubles, @NotNull ContextProvider contextProvider) {
-//            contextProvider.fillAllDirectly(doubles, this);
-//        }
+        @Override
+        public void fillArray(double @NotNull [] doubles, @NotNull ContextProvider contextProvider) {
+            contextProvider.fillAllDirectly(doubles, this);
+        }
 
-//        @Override
-//        @NotNull
-//        public DensityFunction mapAll(@NotNull Visitor visitor) {
-//            return visitor.apply(this);
-//        }
+        @Override
+        @NotNull
+        public DensityFunction mapAll(@NotNull Visitor visitor) {
+            return visitor.apply(this);
+        }
 
         @Override
         public double minValue() {

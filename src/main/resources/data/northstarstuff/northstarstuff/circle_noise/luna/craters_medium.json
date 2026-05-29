@@ -1,4 +1,5 @@
 {
   "scale": 6,
-  "rarity": 10
+  "rarity": 400,
+  "shift_factor": 1.5
 }

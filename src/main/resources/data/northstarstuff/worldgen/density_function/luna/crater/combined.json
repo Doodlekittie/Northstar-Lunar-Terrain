@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:add",
+  "argument1": {
+    "type": "minecraft:add",
+    "argument1": "northstarstuff:luna/crater/tiny",
+    "argument2": "northstarstuff:luna/crater/small"
+  },
+  "argument2": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:add",
+      "argument1": "northstarstuff:luna/crater/medium",
+      "argument2": "northstarstuff:luna/crater/large"
+    },
+    "argument2": {
+      "type": "minecraft:add",
+      "argument1": "northstarstuff:luna/crater/huge",
+      "argument2": "northstarstuff:luna/crater/giant"
+    }
+  }
+}
