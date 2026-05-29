@@ -11,7 +11,7 @@ import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import net.minecraft.world.level.levelgen.synth.PerlinNoise;
 import org.apache.commons.codec.digest.MurmurHash3;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import static doodlekittie.northstarstuff.registry.ModRegistries.CIRCLE_NOISE_REGISTRY_KEY;
@@ -21,7 +21,7 @@ public class CircleNoise {
 
     private final Holder<NoiseParameters> parameters;
     private final long seed;
-    private final Cache<Long, ConcurrentHashMap<Long, Integer>>
+    private final Cache<Long, PartitionData>
             craterCentersCache = Caffeine.newBuilder()
             .expireAfterAccess(1, TimeUnit.MINUTES)
             .build();
@@ -63,8 +63,8 @@ public class CircleNoise {
             y = (int) (y + sY);
         }
 
-        var pX = (int) Math.floor((double) x / partitionSize);
-        var pY = (int) Math.floor((double) y / partitionSize);
+        var pX = Math.floorDiv(x, partitionSize);
+        var pY = Math.floorDiv(y, partitionSize);
         var lX = x - pX * partitionSize;
         var lY = y - pY * partitionSize;
 
@@ -84,40 +84,56 @@ public class CircleNoise {
     }
 
     private double checkPartition(int pX, int pY, int x, int y) {
-        final double[] maxVal = {0d};
+        var partitionData = getPartitionData(pX, pY);
+        var maxVal = 0d;
 
-        getPartitionCenters(pX, pY).forEach((key, radius) -> {
-            int cX = (int) (key >> 32);
-            int cY = key.intValue();
+        for (var i = 0; i <= partitionData.size; i++) {
+            var packedCenter = partitionData.centers[i];
+            int cX = (int) (packedCenter >> 32);
+            int cY = (int) packedCenter;
+
             var dist = Math.sqrt(Math.pow(cX - x, 2) + Math.pow(cY - y, 2));
-            var val = Math.max(1 - (dist * 1 / radius), 0);
-            maxVal[0] = Math.max(maxVal[0], val);
-        });
+            var val = Math.max(1 - (dist * 1 / partitionData.radii[i]), 0);
+            if (val > maxVal) {
+                maxVal = val;
+            }
+        }
 
-        return maxVal[0];
+        return maxVal;
     }
 
-    private ConcurrentHashMap<Long, Integer> getPartitionCenters(int x, int y) {
+    private PartitionData getPartitionData(int x, int y) {
         return craterCentersCache.get(pack(x, y),
-                l -> generatePartitionCenters(x, y));
+                l -> generatePartitionData(x, y));
     }
 
-    private ConcurrentHashMap<Long, Integer> generatePartitionCenters(int pX, int pY) {
-        var centers = new ConcurrentHashMap<Long, Integer>();
+    private PartitionData generatePartitionData(int pX, int pY) {
+        var capacity = 8;
+        var centers = new long[8];
+        var radii = new double[8];
+        var size = 0;
 
         for (var lC = 0; lC <  Math.pow(partitionSize, 2); lC = lC + nthToCheck) {
-            var lX = (int) Math.floor(((double) lC / partitionSize));
+            var lX = Math.floorDiv(lC, partitionSize);
 
             var x = lX + pX * partitionSize;
             var y = lC % partitionSize + pY * partitionSize;
 
             var val = getCircleValue(x, y);
                 if (val >= threshold) {
+                    if (size == capacity) {
+                        capacity *= 2;
+                        centers = Arrays.copyOf(centers, capacity);
+                        radii = Arrays.copyOf(radii, capacity);
+                    }
+
                     var thisRadius = (int) ((((val - threshold) * generalScale) / 2 + 0.5) * maxRadius);
-                    centers.put(pack(x, y), thisRadius);
+                    centers[size] = pack(x, y);
+                    radii[size] = thisRadius;
+                    size++;
                 }
             }
-        return centers;
+        return new PartitionData(centers, radii, size);
     }
 
     private double getCircleValue(int x, int y) {
@@ -144,5 +160,5 @@ public class CircleNoise {
         }
     }
 
-    private record PartitionData(long[] centers, double[] radii) {}
+    private record PartitionData(long[] centers, double[] radii, int size) {}
 }
