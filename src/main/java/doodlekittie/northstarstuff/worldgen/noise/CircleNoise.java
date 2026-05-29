@@ -143,4 +143,6 @@ public class CircleNoise {
             CODEC = RegistryFileCodec.create(CIRCLE_NOISE_REGISTRY_KEY, DIRECT_CODEC);
         }
     }
+
+    private record PartitionData(long[] centers, double[] radii) {}
 }
