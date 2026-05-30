@@ -307,7 +307,7 @@
           "false_at_and_above": {
             "absolute": 8
           },
-          "random_name": "minecraft:deepslate",
+          "random_name": "northstarstuff:luna/deep_stone",
           "true_at_and_below": {
             "absolute": 0
           }
@@ -319,6 +319,7 @@
           }
         }
       }
+
     ]
   }
 }
