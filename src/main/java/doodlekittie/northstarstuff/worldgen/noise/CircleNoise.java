@@ -32,6 +32,8 @@ public class CircleNoise {
     private boolean activated = false;
     private PerlinNoise perlinNoise;
 
+    private final ThreadLocal<CachedPartitions> cachedPartitions = new ThreadLocal<>();
+
     public CircleNoise(Holder<NoiseParameters> parameters, long seed) {
         this.parameters = parameters;
         this.seed = seed;
@@ -65,17 +67,44 @@ public class CircleNoise {
         var oY = lY > halfPartitionSize ? 1 : -1;
 
         var val = 0d;
+        var k1 = pack(pX, pY);
+        var k3 = pack(pX + oX, pY + oY);
 
-        val = Math.max(val, checkPartition(pX, pY, x, y));
-        val = Math.max(val, checkPartition(pX + oX, pY, x, y));
-        val = Math.max(val, checkPartition(pX + oX, pY + oY, x, y));
-        val = Math.max(val, checkPartition(pX, pY + oY, x, y));
+        PartitionData p1;
+        PartitionData p2;
+        PartitionData p3;
+        PartitionData p4;
+
+        var cachedPartitions = this.cachedPartitions.get();
+        if (cachedPartitions != null
+                && k1 == cachedPartitions.keyedData1.key && k3 == cachedPartitions.keyedData3.key) {
+            p1 = cachedPartitions.keyedData1.partitionData;
+            p2 = cachedPartitions.keyedData2.partitionData;
+            p3 = cachedPartitions.keyedData3.partitionData;
+            p4 = cachedPartitions.keyedData4.partitionData;
+
+        } else {
+            p1 = getPartitionData(pX, pY);
+            p2 = getPartitionData(pX + oX, pY);
+            p3 = getPartitionData(pX + oX, pY + oY);
+            p4 = getPartitionData(pX, pY + oY);
+            this.cachedPartitions.set(new CachedPartitions(
+                    new KeyedPartitionData(pack(pX, pY), p1),
+                    new KeyedPartitionData(pack(pX + oX, pY), p2),
+                    new KeyedPartitionData(pack(pX + oX, pY + oY), p3),
+                    new KeyedPartitionData(pack(pX, pY + oY), p4)
+            ));
+        }
+
+        val = Math.max(val, checkPartitionData(p1, x, y));
+        val = Math.max(val, checkPartitionData(p2, x, y));
+        val = Math.max(val, checkPartitionData(p3, x, y));
+        val = Math.max(val, checkPartitionData(p4, x, y));
 
         return val;
     }
 
-    private double checkPartition(int pX, int pY, int x, int y) {
-        var partitionData = getPartitionData(pX, pY);
+    private double checkPartitionData(PartitionData partitionData, int x, int y) {
         var maxVal = 0d;
 
         for (var i = 0; i <= partitionData.size; i++) {
@@ -161,6 +190,13 @@ public class CircleNoise {
             CODEC = RegistryFileCodec.create(CIRCLE_NOISE_REGISTRY_KEY, DIRECT_CODEC);
         }
     }
+    private record CachedPartitions(
+            KeyedPartitionData keyedData1,
+            KeyedPartitionData keyedData2,
+            KeyedPartitionData keyedData3,
+            KeyedPartitionData keyedData4
+    ) {}
 
+    private record KeyedPartitionData(long key, PartitionData partitionData) {}
     private record PartitionData(long[] centers, double[] radii, int size) {}
 }
