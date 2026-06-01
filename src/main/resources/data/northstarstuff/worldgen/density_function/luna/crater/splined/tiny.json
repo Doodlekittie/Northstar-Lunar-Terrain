@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:mul",
+    "argument1": {
+      "type": "minecraft:spline",
+      "spline": {
+        "coordinate": "northstarstuff:luna/crater/raw/tiny",
+        "points": [
+          {
+            "location": 0,
+            "value": 0,
+            "derivative": 0
+          },
+          {
+            "location": 0.33,
+            "value": 0.2,
+            "derivative": 2
+          },
+          {
+            "location": 0.5,
+            "value": -0.15,
+            "derivative": -1.7
+          },
+          {
+            "location": 1,
+            "value": -0.42,
+            "derivative": 0
+          }
+        ]
+      }
+    },
+    "argument2": 0.03
+  }
+}

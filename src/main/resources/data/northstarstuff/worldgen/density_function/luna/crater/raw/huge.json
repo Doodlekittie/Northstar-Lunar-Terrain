@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "northstarstuff:circle_noise",
+    "noise": "northstarstuff:luna/craters_huge"
+  }
+}

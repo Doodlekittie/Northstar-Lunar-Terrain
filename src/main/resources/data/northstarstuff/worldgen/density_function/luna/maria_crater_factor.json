@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "northstarstuff:luna/continents",
+      "points": [
+        {
+          "location": -0.34,
+          "value": 0,
+          "derivative": 0
+        },
+        {
+          "location": -0.28,
+          "value": 1,
+          "derivative": 0
+        }
+      ]
+    }
+  }
+}
