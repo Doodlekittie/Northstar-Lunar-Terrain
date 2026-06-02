@@ -60,7 +60,7 @@
                             "type": "minecraft:clamp",
                             "input": {
                               "type": "minecraft:add",
-                              "argument1": 0.35,
+                              "argument1": -0.1,
                               "argument2": {
                                 "type": "minecraft:noise",
                                 "noise": "northstarstuff:luna/cave_cheese",
