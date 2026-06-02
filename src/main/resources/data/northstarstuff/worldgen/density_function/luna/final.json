@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:range_choice",
+  "input": {
+    "type": "minecraft:y_clamped_gradient",
+    "from_y": -10,
+    "to_y": -9,
+    "from_value": 0,
+    "to_value": 1
+  },
+  "min_inclusive": 0,
+  "max_exclusive": 1,
+  "when_in_range": {
+    "type": "minecraft:add",
+    "argument1": "northstarstuff:luna/caves",
+    "argument2": {
+      "type": "minecraft:y_clamped_gradient",
+      "from_y": -20,
+      "to_y": -10,
+      "from_value": 0,
+      "to_value": 0.2
+    }
+  },
+  "when_out_of_range": "northstarstuff:luna/depth"
+}

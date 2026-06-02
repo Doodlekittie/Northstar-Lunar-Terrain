@@ -12,11 +12,14 @@
             "humidity": 0,
             "continentalness": [
               -2,
-              -0.35
+              -0.38
             ],
             "erosion": 0,
             "weirdness": 0,
-            "depth": 0,
+            "depth": [
+              -2,
+              0.1
+            ],
             "offset": 0
           }
         },
@@ -31,7 +34,10 @@
             ],
             "erosion": 0,
             "weirdness": 0,
-            "depth": 0,
+            "depth": [
+              -2,
+              0.1
+            ],
             "offset": 0
           }
         },
@@ -46,7 +52,31 @@
             ],
             "erosion": 0,
             "weirdness": 0,
-            "depth": 0,
+            "depth": [
+              -2,
+              0.1
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "northstarstuff:luna/caves",
+          "parameters": {
+            "temperature": 0,
+            "humidity": [
+              -2,
+              2
+            ],
+            "continentalness": [
+              -2,
+              2
+            ],
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": [
+              0.1,
+              2
+            ],
             "offset": 0
           }
         }

@@ -107,7 +107,7 @@ public class CircleNoise {
     private double checkPartitionData(PartitionData partitionData, int x, int y) {
         var maxVal = 0d;
 
-        for (var i = 0; i <= partitionData.size; i++) {
+        for (var i = 0; i < partitionData.size; i++) {
             var packedCenter = partitionData.centers[i];
             int cX = (int) (packedCenter >> 32);
             int cY = (int) packedCenter;
@@ -148,7 +148,7 @@ public class CircleNoise {
             var lX = Math.floorDiv(lC, partitionSize);
 
             var x = lX + pX * partitionSize;
-            var y = lC % partitionSize + pY * partitionSize;
+            var y = Math.floorMod(lC, partitionSize) + pY * partitionSize;
 
             var val = getCircleValue(x, y);
                 if (val >= threshold) {

@@ -24,7 +24,7 @@
     "continents": "northstarstuff:luna/continents",
     "erosion": 0,
     "depth": "northstarstuff:luna/depth",
-    "final_density": "northstarstuff:luna/sloped_cheese",
+    "final_density": "northstarstuff:luna/final",
     "fluid_level_floodedness": {
       "type": "minecraft:noise",
       "noise": "minecraft:aquifer_fluid_level_floodedness",
