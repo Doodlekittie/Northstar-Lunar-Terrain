@@ -45,16 +45,8 @@
       "y_scale": 1
     },
     "ridges": 0,
-    "temperature": {
-      "type": "minecraft:shifted_noise",
-      "noise": "northstarstuff:luna/temperature",
-      "shift_x": "minecraft:shift_x",
-      "shift_y": 0,
-      "shift_z": "minecraft:shift_z",
-      "xz_scale": 0.25,
-      "y_scale": 0
-    },
-    "vegetation": "northstarstuff:luna/crater/biome",
+    "temperature": "northstarstuff:luna/crater/maria_crater_biome",
+    "vegetation": "northstarstuff:luna/crater/huge_crater_biome",
     "vein_gap": {
       "type": "minecraft:noise",
       "noise": "minecraft:ore_gap",
@@ -202,13 +194,83 @@
         "if_true": {
           "type": "minecraft:biome",
           "biome_is": [
-            "northstarstuff:luna/large_crater"
+            "northstarstuff:luna/huge_crater"
           ]
         },
         "then_run": {
-          "type": "minecraft:block",
-          "result_state": {
-            "Name": "northstar:moon_sand"
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:stone_depth",
+            "offset": 40,
+            "surface_type": "floor",
+            "add_surface_depth": false,
+            "secondary_depth_range": 0
+          },
+          "then_run": {
+            "type": "minecraft:block",
+            "result_state": {
+              "Name": "northstar:moon_sand"
+            }
+          }
+        }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:biome",
+          "biome_is": [
+            "northstarstuff:luna/maria_crater"
+          ]
+        },
+        "then_run": {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:above_preliminary_surface"
+          },
+          "then_run": {
+            "type": "minecraft:condition",
+            "if_true": {
+              "type": "minecraft:stone_depth",
+              "offset": 4,
+              "surface_type": "floor",
+              "add_surface_depth": false,
+              "secondary_depth_range": 1
+            },
+            "then_run": {
+              "type": "minecraft:sequence",
+              "sequence": [
+                {
+                  "type": "minecraft:condition",
+                  "if_true": {
+                    "type": "minecraft:noise_threshold",
+                    "noise": "northstarstuff:surface_scatter",
+                    "min_threshold": -99,
+                    "max_threshold": 0
+                  },
+                  "then_run": {
+                    "type": "minecraft:block",
+                    "result_state": {
+                      "Name": "northstar:moon_deep_stone"
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:condition",
+                  "if_true": {
+                    "type": "minecraft:noise_threshold",
+                    "noise": "northstarstuff:surface_scatter",
+                    "min_threshold": 0,
+                    "max_threshold": 99
+                  },
+                  "then_run": {
+                    "type": "minecraft:block",
+                    "result_state": {
+                      "Name": "minecraft:smooth_basalt"
+                    }
+                  }
+                }
+              ]
+            }
           }
         }
       },

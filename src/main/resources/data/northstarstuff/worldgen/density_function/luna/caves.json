@@ -64,7 +64,7 @@
                               "argument2": {
                                 "type": "minecraft:noise",
                                 "noise": "northstarstuff:luna/cave_cheese",
-                                "xz_scale": 1.0,
+                                "xz_scale": 2,
                                 "y_scale": 0.6666666666666666
                               }
                             },

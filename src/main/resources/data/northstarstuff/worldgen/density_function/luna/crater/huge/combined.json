@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:add",
+    "argument1": "northstarstuff:luna/crater/huge/splined/deep",
+    "argument2": "northstarstuff:luna/crater/huge/splined/shallow"
+  }
+}

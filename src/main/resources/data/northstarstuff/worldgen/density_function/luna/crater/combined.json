@@ -1,28 +1,9 @@
 {
-  "type": "minecraft:cache_2d",
-  "argument": {
+  "type": "minecraft:add",
+  "argument1": "northstarstuff:luna/crater/huge/combined",
+  "argument2": {
     "type": "minecraft:add",
-    "argument1": {
-      "type": "minecraft:add",
-      "argument1": "northstarstuff:luna/crater/splined/deep_huge",
-      "argument2": "northstarstuff:luna/crater/splined/huge"
-    },
-    "argument2": {
-      "type": "minecraft:add",
-      "argument1": {
-        "type": "minecraft:add",
-        "argument1": "northstarstuff:luna/crater/splined/large",
-        "argument2": "northstarstuff:luna/crater/splined/medium"
-      },
-      "argument2": {
-        "type": "minecraft:mul",
-        "argument1": {
-          "type": "minecraft:add",
-          "argument1": "northstarstuff:luna/crater/splined/small",
-          "argument2": "northstarstuff:luna/crater/splined/tiny"
-        },
-        "argument2": "northstarstuff:luna/maria_crater_factor"
-      }
-    }
+    "argument1": "northstarstuff:luna/crater/highlands/combined",
+    "argument2": "northstarstuff:luna/crater/maria/combined"
   }
 }

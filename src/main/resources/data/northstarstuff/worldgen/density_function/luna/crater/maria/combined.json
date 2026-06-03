@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:mul",
+    "argument1": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:add",
+      "argument1": "northstarstuff:luna/crater/maria/splined/large",
+      "argument2": "northstarstuff:luna/crater/maria/splined/medium"
+    },
+    "argument2": {
+      "type": "minecraft:add",
+      "argument1": "northstarstuff:luna/crater/maria/splined/small",
+      "argument2": "northstarstuff:luna/crater/maria/splined/tiny"
+    }
+    },
+    "argument2": "northstarstuff:luna/crater/maria_factor"
+  }
+}

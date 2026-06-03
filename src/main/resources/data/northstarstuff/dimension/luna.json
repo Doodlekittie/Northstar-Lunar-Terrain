@@ -42,10 +42,31 @@
           }
         },
         {
-          "biome": "northstarstuff:luna/large_crater",
+          "biome": "northstarstuff:luna/huge_crater",
           "parameters": {
-            "temperature": 0,
+            "temperature": [
+              -2,
+              2
+            ],
             "humidity": 1,
+            "continentalness": [
+              -2,
+              2
+            ],
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": [
+              -2,
+              0.1
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "northstarstuff:luna/maria_crater",
+          "parameters": {
+            "temperature": 1,
+            "humidity": 0,
             "continentalness": [
               -2,
               2
@@ -62,11 +83,32 @@
         {
           "biome": "northstarstuff:luna/caves",
           "parameters": {
-            "temperature": 0,
-            "humidity": [
+            "temperature": [
               -2,
               2
             ],
+            "humidity": 0,
+            "continentalness": [
+              -2,
+              2
+            ],
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": [
+              0.1,
+              2
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "northstarstuff:luna/dust_caves",
+          "parameters": {
+            "temperature": [
+              -2,
+              2
+            ],
+            "humidity": 1,
             "continentalness": [
               -2,
               2

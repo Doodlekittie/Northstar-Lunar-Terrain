@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:range_choice",
+    "input": "northstarstuff:luna/crater/maria_factor",
+    "min_inclusive": 0.0000001,
+    "max_exclusive": 999,
+    "when_in_range": {
+      "type": "northstarstuff:circle_noise",
+      "noise": "northstarstuff:luna/crater/maria/large"
+    },
+    "when_out_of_range": 0
+  }
+}

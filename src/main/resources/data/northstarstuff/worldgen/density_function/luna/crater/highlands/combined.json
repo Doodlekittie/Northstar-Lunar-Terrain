@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:cache_2d",
+  "argument": {
+    "type": "minecraft:range_choice",
+    "input": "northstarstuff:luna/crater/maria_factor",
+    "min_inclusive": 0,
+    "max_exclusive": 1,
+    "when_in_range": {
+      "type": "minecraft:mul",
+      "argument1": {
+        "type": "minecraft:add",
+        "argument1": {
+          "type": "minecraft:add",
+          "argument1": "northstarstuff:luna/crater/highlands/splined/large",
+          "argument2": "northstarstuff:luna/crater/highlands/splined/medium"
+        },
+        "argument2": {
+          "type": "minecraft:add",
+          "argument1": "northstarstuff:luna/crater/highlands/splined/small",
+          "argument2": "northstarstuff:luna/crater/highlands/splined/tiny"
+        }
+      },
+      "argument2": "northstarstuff:luna/crater/highlands_factor"
+    },
+    "when_out_of_range": 0
+  }
+}

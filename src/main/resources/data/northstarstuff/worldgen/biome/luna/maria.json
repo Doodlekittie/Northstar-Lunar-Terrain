@@ -9,28 +9,7 @@
     "water_color": 4159204,
     "water_fog_color": 329011
   },
-  "spawners": {
-    "monster": [
-      {
-        "type": "northstar:moon_lunargrade",
-        "weight": 40,
-        "minCount": 1,
-        "maxCount": 4
-      },
-      {
-        "type": "northstar:moon_snail",
-        "weight": 20,
-        "minCount": 1,
-        "maxCount": 3
-      },
-      {
-        "type": "northstar:moon_eel",
-        "weight": 20,
-        "minCount": 2,
-        "maxCount": 5
-      }
-    ]
-  },
+  "spawners": {},
   "spawn_costs": {},
   "carvers": {
     "air": []
