@@ -1,0 +1,25 @@
+{
+  "type": "northstarstuff:terraced_pool",
+  "config": {
+    "depth": 3,
+    "ground_state": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "create:asurine"
+      }
+    },
+    "pool_state": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:packed_ice"
+      }
+    },
+    "replaceable": "#northstarstuff:luna_pool_replaceable",
+    "vertical_range": 5,
+    "xz_radius": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 7,
+      "min_inclusive": 4
+    }
+  }
+}

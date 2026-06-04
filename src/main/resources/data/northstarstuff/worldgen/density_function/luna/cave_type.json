@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:noise",
+  "noise": "northstarstuff:luna/cave_type",
+  "xz_scale": 1,
+  "y_scale": 1
+}

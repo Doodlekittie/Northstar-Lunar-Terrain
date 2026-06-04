@@ -14,5 +14,11 @@
   "carvers": {
     "air": []
   },
-  "features": []
+  "features": [
+    [],
+    [],
+    [
+      "northstarstuff:luna/ice_pool"
+    ]
+  ]
 }

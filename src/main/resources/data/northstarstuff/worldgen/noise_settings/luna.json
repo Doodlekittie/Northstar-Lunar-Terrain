@@ -44,7 +44,7 @@
       "xz_scale": 1,
       "y_scale": 1
     },
-    "ridges": 0,
+    "ridges": "northstarstuff:luna/cave_type",
     "temperature": "northstarstuff:luna/crater/maria_crater_biome",
     "vegetation": "northstarstuff:luna/crater/huge_crater_biome",
     "vein_gap": {
