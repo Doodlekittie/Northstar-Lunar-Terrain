@@ -1,4 +1,4 @@
-package doodlekittie.northstarstuff.worldgen.feature;
+package doodlekittie.northstarstuff.worldgen.feature.configuration;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -15,6 +15,7 @@ public record TerracedPoolConfiguration(
         BlockStateProvider poolState,
         IntProvider depth,
         IntProvider xzRadius,
+        float extraEdgeColumnChance,
         int verticalRange
 ) implements FeatureConfiguration {
     public static final Codec<TerracedPoolConfiguration> CODEC = RecordCodecBuilder.create(i -> i.group(
@@ -23,6 +24,7 @@ public record TerracedPoolConfiguration(
             BlockStateProvider.CODEC.fieldOf("pool_state").forGetter(TerracedPoolConfiguration::groundState),
             IntProvider.CODEC.fieldOf("depth").forGetter(TerracedPoolConfiguration::depth),
             IntProvider.CODEC.fieldOf("xz_radius").forGetter(TerracedPoolConfiguration::xzRadius),
+            Codec.floatRange(0.0F, 1.0F).fieldOf("extra_edge_column_chance").forGetter(TerracedPoolConfiguration::extraEdgeColumnChance),
             Codec.intRange(1, 256).fieldOf("vertical_range").forGetter(TerracedPoolConfiguration::verticalRange)
     ).apply(i, TerracedPoolConfiguration::new));
 }

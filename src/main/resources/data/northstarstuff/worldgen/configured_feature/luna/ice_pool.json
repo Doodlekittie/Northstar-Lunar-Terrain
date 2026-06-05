@@ -2,6 +2,7 @@
   "type": "northstarstuff:terraced_pool",
   "config": {
     "depth": 3,
+    "extra_edge_column_chance": 0.7,
     "ground_state": {
       "type": "minecraft:simple_state_provider",
       "state": {

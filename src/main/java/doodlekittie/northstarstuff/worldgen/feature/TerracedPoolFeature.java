@@ -1,6 +1,7 @@
 package doodlekittie.northstarstuff.worldgen.feature;
 
 import com.mojang.serialization.Codec;
+import doodlekittie.northstarstuff.worldgen.feature.configuration.TerracedPoolConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -9,19 +10,17 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.function.Predicate;
 
 public class TerracedPoolFeature extends Feature<TerracedPoolConfiguration> {
+    private boolean success = false;
+
     public TerracedPoolFeature(Codec<TerracedPoolConfiguration> codec) {
         super(codec);
     }
 
     public boolean place(FeaturePlaceContext<TerracedPoolConfiguration> context) {
-        var success = false;
         var worldgenlevel = context.level();
         var config = context.config();
         var randomsource = context.random();
@@ -29,14 +28,13 @@ public class TerracedPoolFeature extends Feature<TerracedPoolConfiguration> {
         Predicate<BlockState> predicate = (state) -> state.is(config.replaceable());
         int i = config.xzRadius().sample(randomsource) + 1;
         int j = config.xzRadius().sample(randomsource) + 1;
-        Set<BlockPos> set = this.placeGroundPatch(worldgenlevel, config, randomsource, blockpos, predicate, i, j);
+        this.placeGroundPatch(worldgenlevel, config, randomsource, blockpos, predicate, i, j);
         return success;
     }
 
-    protected Set<BlockPos> placeGroundPatch(WorldGenLevel level, TerracedPoolConfiguration config, RandomSource random, BlockPos pos, Predicate<BlockState> state, int xRadius, int zRadius) {
+    protected void placeGroundPatch(WorldGenLevel level, TerracedPoolConfiguration config, RandomSource random, BlockPos pos, Predicate<BlockState> state, int xRadius, int zRadius) {
         BlockPos.MutableBlockPos blockpos$mutableblockpos = pos.mutable();
         BlockPos.MutableBlockPos blockpos$mutableblockpos1 = blockpos$mutableblockpos.mutable();
-        Set<BlockPos> set = new HashSet<>();
 
         for(int i = -xRadius; i <= xRadius; ++i) {
             boolean flag = i == -xRadius || i == xRadius;
@@ -46,14 +44,14 @@ public class TerracedPoolFeature extends Feature<TerracedPoolConfiguration> {
                 boolean flag2 = flag || flag1;
                 boolean flag3 = flag && flag1;
                 boolean flag4 = flag2 && !flag3;
-                if (!flag3 && !flag4) {
+                if (!flag3 && (!flag4 || config.extraEdgeColumnChance() != 0.0F && !(random.nextFloat() > config.extraEdgeColumnChance()))) {
                     blockpos$mutableblockpos.setWithOffset(pos, i, 0, j);
 
                     for(int k = 0; level.isStateAtPosition(blockpos$mutableblockpos, BlockBehaviour.BlockStateBase::isAir) && k < config.verticalRange(); ++k) {
                         blockpos$mutableblockpos.move(Direction.DOWN);
                     }
 
-                    for(int i1 = 0; level.isStateAtPosition(blockpos$mutableblockpos, (p_284926_) -> !p_284926_.isAir()) && i1 < config.verticalRange(); ++i1) {
+                    for(int i1 = 0; level.isStateAtPosition(blockpos$mutableblockpos, (stateAtPos) -> !stateAtPos.isAir()) && i1 < config.verticalRange(); ++i1) {
                         blockpos$mutableblockpos.move(Direction.UP);
                     }
 
@@ -67,7 +65,6 @@ public class TerracedPoolFeature extends Feature<TerracedPoolConfiguration> {
             }
         }
 
-        return set;
     }
 
     protected void placeGround(WorldGenLevel level, TerracedPoolConfiguration config, Predicate<BlockState> replaceableblocks, RandomSource random, BlockPos.MutableBlockPos mutablePos, int maxDistance) {
@@ -82,6 +79,7 @@ public class TerracedPoolFeature extends Feature<TerracedPoolConfiguration> {
                     }
 
                     level.setBlock(mutablePos, groundState, 2);
+                    this.success = true;
                     mutablePos.move(Direction.DOWN);
                 }
             } else if (!poolState.is(blockstate1.getBlock())) {
@@ -90,6 +88,7 @@ public class TerracedPoolFeature extends Feature<TerracedPoolConfiguration> {
                 }
 
                 level.setBlock(mutablePos, poolState, 2);
+                this.success = true;
                 mutablePos.move(Direction.DOWN);
             }
         }
