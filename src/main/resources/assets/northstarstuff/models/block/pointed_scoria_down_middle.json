@@ -1,0 +1,6 @@
+{
+  "parent": "northstarstuff:block/pointed_scoria",
+  "textures": {
+    "cross": "northstarstuff:block/pointed_scoria_down_middle"
+  }
+}

@@ -17,7 +17,8 @@
   "features": [
     [],
     [
-      "northstarstuff:luna/replace/bottom_ice"
+      "northstarstuff:luna/bottom_ice",
+      "northstarstuff:luna/bottom_lava"
     ]
   ]
 }

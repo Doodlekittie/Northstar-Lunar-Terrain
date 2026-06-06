@@ -1,6 +1,10 @@
 package doodlekittie.northstarstuff;
 
+import com.mojang.serialization.Lifecycle;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -24,8 +28,11 @@ public class NorthstarStuffClient {
 
     @SubscribeEvent
     static void onClientSetup(FMLClientSetupEvent event) {
-        // Some client setup code
-        NorthstarStuff.LOGGER.info("HELLO FROM CLIENT SETUP");
-        NorthstarStuff.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+
+    }
+
+    @SubscribeEvent
+    public static void registerRenderers(FMLClientSetupEvent event) {
+        ItemBlockRenderTypes.setRenderLayer(Block.byItem(NorthstarStuff.POINTED_SCORIA.asItem()), RenderType.cutout());
     }
 }

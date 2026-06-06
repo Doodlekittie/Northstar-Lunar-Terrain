@@ -1,0 +1,16 @@
+{
+  "type": "northstarstuff:replace_block",
+  "config": {
+    "target_biomes": "#northstarstuff:luna/caves",
+    "target_blocks": "#minecraft:air",
+    "replace_with": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:lava"
+      }
+    },
+    "x_range": 16,
+    "y_range": 8,
+    "z_range": 16
+  }
+}

@@ -17,7 +17,12 @@
   "features": [
     [],
     [
-      "northstarstuff:luna/replace/bottom_ice"
+      "northstarstuff:luna/bottom_ice",
+      "northstarstuff:luna/bottom_lava"
+    ],
+    [
+      "northstarstuff:luna/fire_pool",
+      "northstarstuff:luna/magma_cluster"
     ]
   ]
 }

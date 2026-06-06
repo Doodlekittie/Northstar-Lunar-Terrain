@@ -1,12 +1,19 @@
 package doodlekittie.northstarstuff;
 
-import com.mojang.serialization.MapCodec;
+import doodlekittie.northstarstuff.block.PointedScoriaBlock;
 import doodlekittie.northstarstuff.registry.ModRegistries;
 import doodlekittie.northstarstuff.worldgen.densityfunction.ModDensityFunctions;
 import doodlekittie.northstarstuff.worldgen.feature.NorthstarStuffFeatures;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.levelgen.DensityFunction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
 
@@ -17,7 +24,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.common.NeoForge;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(NorthstarStuff.MODID)
@@ -30,29 +36,33 @@ public class NorthstarStuff {
 
 
     // Create a Deferred Register to hold Blocks which will all be registered under the "northstarstuff" namespace
-//    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
 //    // Create a Deferred Register to hold Items which will all be registered under the "northstarstuff" namespace
-//    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
 //    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "northstarstuff" namespace
-//    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
 //    // Creates a new Block with the id "northstarstuff:example_block", combining the namespace and path
 //    public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
+    public static final DeferredBlock<PointedScoriaBlock> POINTED_SCORIA =
+        BLOCKS.register("pointed_scoria", registryName -> new PointedScoriaBlock(
+            BlockBehaviour.Properties.ofFullCopy(Blocks.POINTED_DRIPSTONE)
+        ));
 //    // Creates a new BlockItem with the id "northstarstuff:example_block", combining the namespace and path
-//    public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
+    public static final DeferredItem<BlockItem> POINTED_SCORIA_ITEM = ITEMS.registerSimpleBlockItem("pointed_scoria", POINTED_SCORIA);
 
 //    // Creates a new food item with the id "northstarstuff:example_id", nutrition 1 and saturation 2
 //    public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder()
 //            .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
 
 //    // Creates a creative tab with the id "northstarstuff:example_tab" for the example item, that is placed after the combat tab
-//    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
-//            .title(Component.translatable("itemGroup.northstarstuff")) //The language key for the title of your CreativeModeTab
-//            .withTabsBefore(CreativeModeTabs.COMBAT)
-//            .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
-//            .displayItems((parameters, output) -> {
-//                output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
-//            }).build());
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("tab", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.northstarstuff")) //The language key for the title of your CreativeModeTab
+            .withTabsBefore(CreativeModeTabs.COMBAT)
+            .icon(() -> POINTED_SCORIA_ITEM.get().getDefaultInstance())
+            .displayItems((parameters, output) -> {
+                output.accept(POINTED_SCORIA_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+            }).build());
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
@@ -64,12 +74,9 @@ public class NorthstarStuff {
         NorthstarStuffFeatures.register(modEventBus);
         ModDensityFunctions.DENSITY_FUNCTION_TYPES.register(modEventBus);
 
-        // Register the Deferred Register to the mod event bus so blocks get registered
-//        BLOCKS.register(modEventBus);
-//        // Register the Deferred Register to the mod event bus so items get registered
-//        ITEMS.register(modEventBus);
-//        // Register the Deferred Register to the mod event bus so tabs get registered
-//        CREATIVE_MODE_TABS.register(modEventBus);
+        BLOCKS.register(modEventBus);
+        ITEMS.register(modEventBus);
+        CREATIVE_MODE_TABS.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (NorthstarStuff) to respond directly to events.
@@ -103,6 +110,6 @@ public class NorthstarStuff {
 
 //    @SubscribeEvent
 //    public static void registerRegistries(NewRegistryEvent event) {
-//        event.register(CIRCLE_NOISE_REGISTRY;
+//        event.register(CIRCLE_NOISE_REGISTRY);
 //    }
 }

@@ -6,13 +6,13 @@
     "ground_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "create:asurine"
+        "Name": "northstar:moon_deep_stone"
       }
     },
     "pool_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:packed_ice"
+        "Name": "minecraft:lava"
       }
     },
     "replaceable": "#northstarstuff:luna/base_stone",
