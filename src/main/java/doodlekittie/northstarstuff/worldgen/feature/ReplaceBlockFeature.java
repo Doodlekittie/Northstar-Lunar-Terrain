@@ -16,11 +16,12 @@ public class ReplaceBlockFeature extends Feature<ReplaceBlockConfiguration> {
         var config = context.config();
         var success = false;
 
-        for (var x = 0; x <= config.xRange().sample(context.random()); x++) {
-            for (var y = 0; y <= config.yRange().sample(context.random()); y++) {
-                for (var z = 0; z <= config.zRange().sample(context.random()); z++) {
+        for (var x = 0; x < config.xRange().sample(context.random()); x++) {
+            for (var y = 0; y < config.yRange().sample(context.random()); y++) {
+                for (var z = 0; z < config.zRange().sample(context.random()); z++) {
+                    mutablePos.set(context.origin().getX() + x, context.origin().getY() + y, context.origin().getZ() + z);
                     if (context.level().getBlockState(mutablePos).is(config.targetBlocks())
-                            && config.targetBiomes().isEmpty() || context.level().getBiome(mutablePos).is(config.targetBiomes().get())) {
+                            && (config.targetBiomes().isEmpty() || context.level().getBiome(mutablePos).is(config.targetBiomes().get()))) {
                         context.level().setBlock(mutablePos, config.replaceWith().getState(context.random(), mutablePos), 2);
                         success = true;
                     }

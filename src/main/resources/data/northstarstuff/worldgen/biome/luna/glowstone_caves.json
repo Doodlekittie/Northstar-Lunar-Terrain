@@ -14,5 +14,10 @@
   "carvers": {
     "air": []
   },
-  "features": []
+  "features": [
+    [],
+    [
+      "northstarstuff:luna/replace/bottom_ice"
+    ]
+  ]
 }

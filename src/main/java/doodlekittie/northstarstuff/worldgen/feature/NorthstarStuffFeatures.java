@@ -2,6 +2,7 @@ package doodlekittie.northstarstuff.worldgen.feature;
 
 import doodlekittie.northstarstuff.NorthstarStuff;
 import doodlekittie.northstarstuff.worldgen.feature.configuration.ReplaceBlockConfiguration;
+import doodlekittie.northstarstuff.worldgen.feature.configuration.SpeleothemClusterConfiguration;
 import doodlekittie.northstarstuff.worldgen.feature.configuration.TerracedPoolConfiguration;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -14,6 +15,9 @@ public abstract class NorthstarStuffFeatures {
 
     public static final DeferredHolder<Feature<?>, TerracedPoolFeature> TERRACED_POOL =
             FEATURES.register("terraced_pool", () -> new TerracedPoolFeature(TerracedPoolConfiguration.CODEC));
+
+    public static final DeferredHolder<Feature<?>, SpeleothemClusterFeature> SPELEOTHEM_CLUSTER =
+            FEATURES.register("speleothem_cluster", () -> new SpeleothemClusterFeature(SpeleothemClusterConfiguration.CODEC));
 
     public static final DeferredHolder<Feature<?>, ReplaceBlockFeature> REPLACE_BLOCK =
             FEATURES.register("replace_block", () -> new ReplaceBlockFeature(ReplaceBlockConfiguration.CODEC));

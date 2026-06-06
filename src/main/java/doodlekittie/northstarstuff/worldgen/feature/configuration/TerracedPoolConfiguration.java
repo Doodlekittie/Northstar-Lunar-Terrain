@@ -21,7 +21,7 @@ public record TerracedPoolConfiguration(
     public static final Codec<TerracedPoolConfiguration> CODEC = RecordCodecBuilder.create(i -> i.group(
             TagKey.hashedCodec(Registries.BLOCK).fieldOf("replaceable").forGetter(TerracedPoolConfiguration::replaceable),
             BlockStateProvider.CODEC.fieldOf("ground_state").forGetter(TerracedPoolConfiguration::groundState),
-            BlockStateProvider.CODEC.fieldOf("pool_state").forGetter(TerracedPoolConfiguration::groundState),
+            BlockStateProvider.CODEC.fieldOf("pool_state").forGetter(TerracedPoolConfiguration::poolState),
             IntProvider.CODEC.fieldOf("depth").forGetter(TerracedPoolConfiguration::depth),
             IntProvider.CODEC.fieldOf("xz_radius").forGetter(TerracedPoolConfiguration::xzRadius),
             Codec.floatRange(0.0F, 1.0F).fieldOf("extra_edge_column_chance").forGetter(TerracedPoolConfiguration::extraEdgeColumnChance),

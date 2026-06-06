@@ -1,6 +1,8 @@
 {
   "values": [
-    "northstarstuff:luna/caves",
+    "northstarstuff:luna/ice_caves",
+    "northstarstuff:luna/fire_caves",
+    "northstarstuff:luna/glowstone_caves",
     "northstarstuff:luna/dust_caves"
   ]
 }

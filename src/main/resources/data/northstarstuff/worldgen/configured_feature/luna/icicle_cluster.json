@@ -1,0 +1,19 @@
+{
+  "type": "northstarstuff:speleothem_cluster",
+  "config": {
+    "base_stone": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:packed_ice"
+      }
+    },
+    "pointed_stone": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "northstar:icicle"
+      }
+    },
+    "base_stone_replaceable": "#northstarstuff:icicle_cluster_ice_replaceable",
+    "speleothem_supports": "#northstarstuff:icicle_supports"
+  }
+}

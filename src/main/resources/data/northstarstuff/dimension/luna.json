@@ -93,27 +93,6 @@
           }
         },
         {
-          "biome": "northstarstuff:luna/caves",
-          "parameters": {
-            "temperature": [
-              -2,
-              2
-            ],
-            "humidity": 0,
-            "continentalness": [
-              -2,
-              2
-            ],
-            "erosion": 0,
-            "weirdness": 0,
-            "depth": [
-              0.1,
-              2
-            ],
-            "offset": 0
-          }
-        },
-        {
           "biome": "northstarstuff:luna/dust_caves",
           "parameters": {
             "temperature": [
