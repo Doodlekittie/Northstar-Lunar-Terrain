@@ -34,5 +34,6 @@ public class NorthstarStuffClient {
     @SubscribeEvent
     public static void registerRenderers(FMLClientSetupEvent event) {
         ItemBlockRenderTypes.setRenderLayer(Block.byItem(NorthstarStuff.POINTED_SCORIA.asItem()), RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(Block.byItem(NorthstarStuff.POINTED_SCORCHIA.asItem()), RenderType.cutout());
     }
 }

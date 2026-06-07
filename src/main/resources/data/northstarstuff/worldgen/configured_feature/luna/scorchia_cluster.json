@@ -1,0 +1,65 @@
+{
+  "type": "northstarstuff:speleothem_cluster",
+  "config": {
+    "base_stone": {
+      "type": "minecraft:noise_threshold_provider",
+      "seed": -451418878,
+      "noise": {
+        "firstOctave": -3,
+        "amplitudes": [
+          1,
+          1,
+          1
+        ]
+      },
+      "scale": 1,
+      "threshold": 0,
+      "high_chance": 1,
+      "default_state": {
+        "Name": "create:scoria"
+      },
+      "low_states": [
+        {
+          "Name": "create:scorchia"
+        }
+      ],
+      "high_states": [
+        {
+          "Name": "create:scoria"
+        }
+      ]
+    },
+    "pointed_stone": {
+      "Name": "northstarstuff:pointed_scorchia"
+    },
+    "surface": "floor",
+    "base_stone_replaceable": "#northstarstuff:luna/base_stone",
+    "chance_of_stone_column_at_max_distance_from_center": 0.2,
+    "density": {
+      "type": "minecraft:uniform",
+      "max_exclusive": 0.7,
+      "min_inclusive": 0.3
+    },
+    "stone_block_layer_thickness": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 4,
+      "min_inclusive": 2
+    },
+    "floor_to_ceiling_search_range": 12,
+    "height": {
+      "type": "minecraft:biased_to_bottom",
+      "max_inclusive": 2,
+      "min_inclusive": 1
+    },
+    "height_deviation": 1,
+    "max_distance_from_center_affecting_height_bias": 8,
+    "max_distance_from_edge_affecting_chance_of_stone_column": 3,
+    "max_stalagmite_stalactite_height_diff": 1,
+    "radius": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 8,
+      "min_inclusive": 2
+    },
+    "wetness": 0
+  }
+}

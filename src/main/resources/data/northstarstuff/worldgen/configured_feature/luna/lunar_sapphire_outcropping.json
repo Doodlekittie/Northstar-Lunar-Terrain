@@ -1,0 +1,47 @@
+{
+  "type": "minecraft:fossil",
+  "config": {
+    "max_empty_corners_allowed": 4,
+    "fossil_structures": [
+      "northstarstuff:lunar_sapphire_outcropping/1",
+      "northstarstuff:lunar_sapphire_outcropping/2",
+      "northstarstuff:lunar_sapphire_outcropping/3",
+      "northstarstuff:lunar_sapphire_outcropping/4",
+      "northstarstuff:lunar_sapphire_outcropping/5",
+      "northstarstuff:lunar_sapphire_outcropping/6"
+    ],
+    "overlay_structures": [
+      "northstarstuff:empty",
+      "northstarstuff:empty",
+      "northstarstuff:empty",
+      "northstarstuff:empty",
+      "northstarstuff:empty",
+      "northstarstuff:empty"
+    ],
+    "fossil_processors": {
+      "processors": [
+        {
+          "processor_type": "minecraft:rule",
+          "rules": [
+            {
+              "location_predicate": {
+                "predicate_type": "minecraft:always_true"
+              },
+              "input_predicate": {
+                "predicate_type": "minecraft:random_block_match",
+                "block": "northstar:lunar_sapphire_block",
+                "probability": 0.3
+              },
+              "output_state": {
+                "Name": "northstar:budding_lunar_sapphire_block"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "overlay_processors": {
+      "processors": []
+    }
+  }
+}

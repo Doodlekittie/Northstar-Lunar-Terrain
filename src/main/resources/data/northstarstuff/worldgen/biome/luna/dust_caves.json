@@ -17,7 +17,19 @@
   "features": [
     [],
     [
-
+      "northstarstuff:luna/bottom_ice",
+      "northstarstuff:luna/bottom_lava",
+      "northstarstuff:luna/bottom_sand",
+      "northstarstuff:luna/bottom_ochrum"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      "northstarstuff:luna/lunar_sapphire_outcropping",
+      "northstarstuff:luna/striated_andesite",
+      "northstarstuff:luna/dust_caves_diamond_ore"
     ]
   ]
 }

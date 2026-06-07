@@ -1,0 +1,49 @@
+{
+  "type": "northstarstuff:replace_block",
+  "config": {
+    "target_biomes": "#northstarstuff:luna/ice_caves",
+    "target_blocks": "#northstarstuff:luna/titanium_ore_replaceable",
+    "replace_with": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "weight": 2,
+          "data": {
+            "Name": "minecraft:basalt",
+            "Properties": {
+              "axis": "x"
+            }
+          }
+        },
+        {
+          "weight": 2,
+          "data": {
+            "Name": "minecraft:basalt",
+            "Properties": {
+              "axis": "y"
+            }
+          }
+        },
+        {
+          "weight": 2,
+          "data": {
+            "Name": "minecraft:basalt",
+            "Properties": {
+              "axis": "z"
+            }
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "northstar:moon_deep_titanium_ore"
+          }
+        }
+      ]
+    },
+    "x_range": 16,
+    "y_range": 60,
+    "z_range": 16
+  }
+}
+

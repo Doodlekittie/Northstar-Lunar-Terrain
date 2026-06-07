@@ -1,0 +1,39 @@
+{
+  "type": "northstarstuff:replace_block",
+  "config": {
+    "target_biomes": "#northstarstuff:luna/glowstone_caves",
+    "target_blocks": "#minecraft:air",
+    "replace_with": {
+      "type": "minecraft:noise_threshold_provider",
+      "seed": 994219433,
+      "noise": {
+        "amplitudes": [
+          1,
+          0,
+          5,
+          5
+        ],
+        "firstOctave": -3
+      },
+      "scale": 1,
+      "threshold": 0.4,
+      "high_chance": 1,
+      "default_state": {
+        "Name": "northstar:moon_deep_stone"
+      },
+      "low_states": [
+        {
+          "Name": "create:scoria"
+        }
+      ],
+      "high_states": [
+        {
+          "Name": "create:ochrum"
+        }
+      ]
+    },
+    "x_range": 16,
+    "y_range": 8,
+    "z_range": 16
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "type": "northstarstuff:replace_block",
+  "config": {
+    "target_biomes": "#northstarstuff:luna/glowstone_caves",
+    "target_blocks": "#northstarstuff:luna/glowstone_ore_replaceable",
+    "replace_with": {
+      "type": "minecraft:noise_threshold_provider",
+      "seed": 994219433,
+      "noise": {
+        "amplitudes": [
+          1,
+          0,
+          5,
+          5
+        ],
+        "firstOctave": -3
+      },
+      "scale": 1,
+      "threshold": 0.3,
+      "high_chance": 0.6,
+      "default_state": {
+        "Name": "northstar:moon_deep_stone"
+      },
+      "low_states": [
+        {
+          "Name": "minecraft:glowstone"
+        }
+      ],
+      "high_states": [
+        {
+          "Name": "northstar:moon_deep_glowstone_ore"
+        }
+      ]
+    },
+    "x_range": 16,
+    "y_range": 60,
+    "z_range": 16
+  }
+}
+

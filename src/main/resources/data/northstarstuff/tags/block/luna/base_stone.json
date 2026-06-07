@@ -1,6 +1,8 @@
 {
   "values": [
     "northstar:moon_stone",
-    "northstar:moon_deep_stone"
+    "northstar:moon_deep_stone",
+    "northstar:moon_sand",
+    "minecraft:magma_block"
   ]
 }

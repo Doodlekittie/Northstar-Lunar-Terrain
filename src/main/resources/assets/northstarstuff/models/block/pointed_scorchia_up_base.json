@@ -1,0 +1,6 @@
+{
+  "parent": "northstarstuff:block/pointed_scorchia",
+  "textures": {
+    "cross": "northstarstuff:block/pointed_scorchia_up_base"
+  }
+}

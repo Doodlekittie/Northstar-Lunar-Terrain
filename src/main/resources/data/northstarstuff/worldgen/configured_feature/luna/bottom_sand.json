@@ -1,12 +1,12 @@
 {
   "type": "northstarstuff:replace_block",
   "config": {
-    "target_biomes": "#northstarstuff:luna/fire_caves",
+    "target_biomes": "#northstarstuff:luna/dust_caves",
     "target_blocks": "#minecraft:air",
     "replace_with": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:lava"
+        "Name": "northstar:moon_sand"
       }
     },
     "x_range": 16,

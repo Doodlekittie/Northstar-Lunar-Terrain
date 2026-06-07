@@ -18,7 +18,9 @@
     [],
     [
       "northstarstuff:luna/bottom_ice",
-      "northstarstuff:luna/bottom_lava"
+      "northstarstuff:luna/bottom_lava",
+      "northstarstuff:luna/bottom_sand",
+      "northstarstuff:luna/bottom_ochrum"
     ],
     [
       "northstarstuff:luna/ice_pool",
@@ -26,6 +28,12 @@
     ],
     [
 
+    ],
+    [],
+    [],
+    [
+      "northstarstuff:luna/striated_basalt",
+      "northstarstuff:luna/ice_caves_titanium_ore"
     ]
   ]
 }

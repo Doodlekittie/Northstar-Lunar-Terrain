@@ -1,0 +1,28 @@
+{
+  "type": "northstarstuff:replace_block",
+  "config": {
+    "target_biomes": "#northstarstuff:luna/dust_caves",
+    "target_blocks": "#northstarstuff:luna/diamond_ore_replaceable",
+    "replace_with": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "weight": 99,
+          "data": {
+            "Name": "minecraft:andesite"
+          }
+        },
+        {
+          "weight": 1,
+          "data": {
+            "Name": "northstar:moon_diamond_ore"
+          }
+        }
+      ]
+    },
+    "x_range": 16,
+    "y_range": 60,
+    "z_range": 16
+  }
+}
+

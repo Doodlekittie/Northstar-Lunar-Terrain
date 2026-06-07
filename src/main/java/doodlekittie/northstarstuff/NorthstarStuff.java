@@ -1,5 +1,6 @@
 package doodlekittie.northstarstuff;
 
+import doodlekittie.northstarstuff.block.PointedScorchiaBlock;
 import doodlekittie.northstarstuff.block.PointedScoriaBlock;
 import doodlekittie.northstarstuff.registry.ModRegistries;
 import doodlekittie.northstarstuff.worldgen.densityfunction.ModDensityFunctions;
@@ -48,8 +49,14 @@ public class NorthstarStuff {
         BLOCKS.register("pointed_scoria", registryName -> new PointedScoriaBlock(
             BlockBehaviour.Properties.ofFullCopy(Blocks.POINTED_DRIPSTONE)
         ));
+    public static final DeferredBlock<PointedScorchiaBlock> POINTED_SCORCHIA =
+            BLOCKS.register("pointed_scorchia", registryName -> new PointedScorchiaBlock(
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.POINTED_DRIPSTONE)
+            ));
+
 //    // Creates a new BlockItem with the id "northstarstuff:example_block", combining the namespace and path
     public static final DeferredItem<BlockItem> POINTED_SCORIA_ITEM = ITEMS.registerSimpleBlockItem("pointed_scoria", POINTED_SCORIA);
+    public static final DeferredItem<BlockItem> POINTED_SCORCHIA_ITEM = ITEMS.registerSimpleBlockItem("pointed_scorchia", POINTED_SCORCHIA);
 
 //    // Creates a new food item with the id "northstarstuff:example_id", nutrition 1 and saturation 2
 //    public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder()
@@ -61,7 +68,8 @@ public class NorthstarStuff {
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> POINTED_SCORIA_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(POINTED_SCORIA_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(POINTED_SCORIA_ITEM.get());
+                output.accept(POINTED_SCORCHIA_ITEM.get());// Add the example item to the tab. For your own tabs, this method is preferred over the event
             }).build());
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.

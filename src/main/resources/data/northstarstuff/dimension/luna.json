@@ -131,31 +131,7 @@
             "erosion": 0,
             "weirdness": [
               -2,
-              -0.3
-            ],
-            "depth": [
-              0.1,
-              2
-            ],
-            "offset": 0
-          }
-        },
-        {
-          "biome": "northstarstuff:luna/fire_caves",
-          "parameters": {
-            "temperature": [
-              -2,
-              2
-            ],
-            "humidity": 0,
-            "continentalness": [
-              -2,
-              2
-            ],
-            "erosion": 0,
-            "weirdness": [
-              -0.3,
-              0.3
+              -0.25
             ],
             "depth": [
               0.1,
@@ -178,7 +154,31 @@
             ],
             "erosion": 0,
             "weirdness": [
-              0.3,
+              -0.25,
+              0.25
+            ],
+            "depth": [
+              0.1,
+              2
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "northstarstuff:luna/fire_caves",
+          "parameters": {
+            "temperature": [
+              -2,
+              2
+            ],
+            "humidity": 0,
+            "continentalness": [
+              -2,
+              2
+            ],
+            "erosion": 0,
+            "weirdness": [
+              0.25,
               2
             ],
             "depth": [
