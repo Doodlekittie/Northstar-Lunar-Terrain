@@ -10,8 +10,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -44,7 +47,9 @@ public class NorthstarStuff {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
 //    // Creates a new Block with the id "northstarstuff:example_block", combining the namespace and path
-//    public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
+    public static final DeferredBlock<Block> METEOR_STONE = BLOCKS.registerSimpleBlock("meteor_stone",
+        BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).mapColor(MapColor.DEEPSLATE).sound(SoundType.DEEPSLATE));
+
     public static final DeferredBlock<PointedScoriaBlock> POINTED_SCORIA =
         BLOCKS.register("pointed_scoria", registryName -> new PointedScoriaBlock(
             BlockBehaviour.Properties.ofFullCopy(Blocks.POINTED_DRIPSTONE)
@@ -57,6 +62,7 @@ public class NorthstarStuff {
 //    // Creates a new BlockItem with the id "northstarstuff:example_block", combining the namespace and path
     public static final DeferredItem<BlockItem> POINTED_SCORIA_ITEM = ITEMS.registerSimpleBlockItem("pointed_scoria", POINTED_SCORIA);
     public static final DeferredItem<BlockItem> POINTED_SCORCHIA_ITEM = ITEMS.registerSimpleBlockItem("pointed_scorchia", POINTED_SCORCHIA);
+    public static final DeferredItem<BlockItem> METEOR_STONE_ITEM = ITEMS.registerSimpleBlockItem("meteor_stone", METEOR_STONE);
 
 //    // Creates a new food item with the id "northstarstuff:example_id", nutrition 1 and saturation 2
 //    public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder()
@@ -69,7 +75,8 @@ public class NorthstarStuff {
             .icon(() -> POINTED_SCORIA_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(POINTED_SCORIA_ITEM.get());
-                output.accept(POINTED_SCORCHIA_ITEM.get());// Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(POINTED_SCORCHIA_ITEM.get());
+                output.accept(METEOR_STONE_ITEM.get());// Add the example item to the tab. For your own tabs, this method is preferred over the event
             }).build());
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.

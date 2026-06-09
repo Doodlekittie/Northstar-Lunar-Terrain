@@ -1,0 +1,25 @@
+{
+  "feature": "northstarstuff:luna/maria_ore",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:uniform",
+        "min_inclusive": 1,
+        "max_inclusive": 5
+      }
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "absolute": 37
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

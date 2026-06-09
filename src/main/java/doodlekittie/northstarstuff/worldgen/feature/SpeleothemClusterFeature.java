@@ -227,7 +227,9 @@ public class SpeleothemClusterFeature extends Feature<SpeleothemClusterConfigura
                     state = state.setValue(PointedDripstoneBlock.WATERLOGGED, level.isWaterAt(mutablePos));
                 }
 
-                level.setBlock(mutablePos, state, 2);
+                if(level.getBlockState(mutablePos).isAir()) {
+                    level.setBlock(mutablePos, state, 2);
+                }
                 mutablePos.move(direction);
             });
         }

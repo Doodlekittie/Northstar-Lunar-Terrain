@@ -1,0 +1,17 @@
+{
+  "type": "northstarstuff:boulder",
+  "config": {
+    "state": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "northstarstuff:meteor_stone"
+      }
+    },
+    "scale": {
+      "type": "minecraft:biased_to_bottom",
+      "min_inclusive": 1,
+      "max_inclusive": 2
+    },
+    "detail": 1
+  }
+}

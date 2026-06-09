@@ -14,5 +14,15 @@
   "carvers": {
     "air": []
   },
-  "features": []
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "northstarstuff:luna/maria_crater_ore"
+    ]
+  ]
 }

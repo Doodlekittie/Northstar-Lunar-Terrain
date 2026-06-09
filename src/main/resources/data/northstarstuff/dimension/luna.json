@@ -27,12 +27,33 @@
           }
         },
         {
-          "biome": "northstarstuff:luna/highlands",
+          "biome": "northstarstuff:luna/highland_slopes",
           "parameters": {
             "temperature": 0,
             "humidity": 0,
             "continentalness": [
               -0.35,
+              0
+            ],
+            "erosion": 0,
+            "weirdness": [
+              -2,
+              2
+            ],
+            "depth": [
+              -2,
+              0.1
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "northstarstuff:luna/highlands",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0,
+            "continentalness": [
+              0,
               2
             ],
             "erosion": 0,

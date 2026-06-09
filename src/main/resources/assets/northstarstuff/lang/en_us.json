@@ -2,6 +2,7 @@
   "itemGroup.northstarstuff": "Northstarstuff Stuff",
   "block.northstarstuff.pointed_scoria": "Pointed Scoria",
   "block.northstarstuff.pointed_scorchia": "Pointed Scorchia",
+  "block.northstarstuff.meteor_stone": "Meteor Stone",
 
   "northstarstuff.configuration.title": "Northstar Stuff Configs",
   "northstarstuff.configuration.section.northstarstuff.common.toml": "Northstar Stuff Configs",

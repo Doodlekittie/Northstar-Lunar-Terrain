@@ -14,5 +14,12 @@
   "carvers": {
     "air": []
   },
-  "features": []
+  "features": [
+    [],
+    [],
+    [
+      "northstarstuff:luna/boulder_small",
+      "northstarstuff:luna/boulder_large"
+    ]
+  ]
 }
