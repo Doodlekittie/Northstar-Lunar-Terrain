@@ -112,17 +112,20 @@ public class CircleNoise {
             int cX = (int) (packedCenter >> 32);
             int cY = (int) packedCenter;
 
-            var dist = Math.sqrt(Math.pow(cX - x, 2) + Math.pow(cY - y, 2));
-            if (dist > partitionData.radii[i]) {
-                continue;
-            }
+            var shift = 0;
 
             var shiftFactor = parameters.value().shiftFactor;
             if(shiftFactor > 0) {
                 var factor = (double) parameters.value().scale * shiftFactor;
-                var shift = perlinNoise.getValue(x, 0d, y) * factor;
-                dist = dist + shift;
+                shift = (int) Math.floor(perlinNoise.getValue(x, 0d, y) * factor);
             }
+
+            var dist = Math.sqrt(Math.pow(cX - x, 2) + Math.pow(cY - y, 2)) + shift;
+            if (dist > partitionData.radii[i]) {
+                continue;
+            }
+
+
             var val = Math.max(1 - (dist / partitionData.radii[i]), 0);
 
             if (val > maxVal) {

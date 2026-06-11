@@ -3,12 +3,15 @@ package doodlekittie.northstarstuff.worldgen.feature;
 import com.mojang.serialization.Codec;
 import doodlekittie.northstarstuff.worldgen.feature.configuration.BoulderConfiguration;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import org.jspecify.annotations.NonNull;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class BoulderFeature extends Feature<BoulderConfiguration> {
     public BoulderFeature(Codec<BoulderConfiguration> codec) {
@@ -17,8 +20,6 @@ public class BoulderFeature extends Feature<BoulderConfiguration> {
 
     @Override
     public boolean place(@NonNull FeaturePlaceContext<BoulderConfiguration> context) {
-        var success = false;
-
         var random = context.random();
         var scale = context.config().scale().sample(random);
         var octaves = new double[context.config().detail().sample(random)];
@@ -31,35 +32,53 @@ public class BoulderFeature extends Feature<BoulderConfiguration> {
 
         var radius = (int) Math.pow(2, scale);
         var radiusSquared = Math.pow(radius, 2);
-        var mutablePos = new BlockPos.MutableBlockPos(0, 0, 0);
 
-        var oX = context.origin().getX();
-        var oY = context.origin().getY();
-        var oZ = context.origin().getZ();
+        var xOffset = 0;
 
-        for (var x = -radius; x <= radius; x++) {
-            for (var y = -radius; y <= radius; y++) {
-                for (var z = -radius; z <= radius; z++) {
+        for (var i = 1; i <= 10; i++) {
+            if (noise.getValue(i * 100, 0, 0) > 0.2) {
+                xOffset = i * 100;
+            }
+        }
 
-                    var distSquared = Math.pow(x, 2)
-                            + Math.pow(y, 2)
-                            + Math.pow(z, 2);
+        if (xOffset == 0) {
+            return false;
+        }
 
-                    if (distSquared > radiusSquared) {
-                        continue;
-                    }
-                    var distFactor = distSquared / radiusSquared;
-                    var density = noise.getValue(x, y, z) - distFactor;
+        var filled = new HashSet<BlockPos>();
+        var found = new HashSet<BlockPos>();
+        var toCheck = new ArrayDeque<BlockPos>();
 
-                    if (density > 0) {
-                        mutablePos.set(oX + x, oY + y, oZ + z);
-                        context.level().setBlock(mutablePos, context.config().state().getState(context.random(),
-                                mutablePos), 2);
-                        success = true;
+        found.add(context.origin());
+        toCheck.add(context.origin());
+
+        while (!toCheck.isEmpty()) {
+            var currentPos = toCheck.pop();
+
+            var distSquared = currentPos.distSqr(context.origin());
+
+            if (distSquared > radiusSquared) {
+                continue;
+            }
+
+            var distFactor = distSquared / radiusSquared;
+            var density = noise.getValue(xOffset + currentPos.getX(), currentPos.getY(), currentPos.getZ()) - distFactor;
+
+            if (density > 0) {
+                filled.add(currentPos);
+
+                for (var direction : Direction.values()) {
+                    var toAdd = currentPos.relative(direction);
+                    if (found.add(toAdd)) {
+                        toCheck.add(toAdd);
                     }
                 }
             }
         }
-        return success;
+
+        for (var pos : filled) {
+            context.level().setBlock(pos, context.config().state().getState(context.random(), pos), 2);
+        }
+        return true;
     }
 }
