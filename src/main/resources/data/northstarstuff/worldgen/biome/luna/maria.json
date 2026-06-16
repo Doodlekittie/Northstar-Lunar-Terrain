@@ -12,7 +12,9 @@
   "spawners": {},
   "spawn_costs": {},
   "carvers": {
-    "air": []
+    "air": [
+      "northstarstuff:luna/lava_tunnel"
+    ]
   },
   "features": [
     [],

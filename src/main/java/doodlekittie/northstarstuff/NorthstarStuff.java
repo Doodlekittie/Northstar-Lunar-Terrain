@@ -3,6 +3,7 @@ package doodlekittie.northstarstuff;
 import doodlekittie.northstarstuff.block.PointedScorchiaBlock;
 import doodlekittie.northstarstuff.block.PointedScoriaBlock;
 import doodlekittie.northstarstuff.registry.ModRegistries;
+import doodlekittie.northstarstuff.worldgen.carver.ModCarvers;
 import doodlekittie.northstarstuff.worldgen.densityfunction.ModDensityFunctions;
 import doodlekittie.northstarstuff.worldgen.feature.NorthstarStuffFeatures;
 import net.minecraft.core.registries.Registries;
@@ -87,6 +88,7 @@ public class NorthstarStuff {
         modEventBus.addListener(ModRegistries::registerDatapackRegistries);
 
         NorthstarStuffFeatures.register(modEventBus);
+        ModCarvers.register(modEventBus);
         ModDensityFunctions.DENSITY_FUNCTION_TYPES.register(modEventBus);
 
         BLOCKS.register(modEventBus);
