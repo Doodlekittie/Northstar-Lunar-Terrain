@@ -1,0 +1,222 @@
+{
+  "type": "northstarstuff:luna",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "northstarstuff:luna/maria",
+          "parameters": {
+            "temperature": 0,
+            "humidity": [
+              0,
+              1
+            ],
+            "continentalness": [
+              -2,
+              -0.38
+            ],
+            "erosion": 0,
+            "weirdness": [
+              -2,
+              2
+            ],
+            "depth": [
+              -2,
+              0.2
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "northstarstuff:luna/highland_slopes",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0,
+            "continentalness": [
+              -0.35,
+              0
+            ],
+            "erosion": 0,
+            "weirdness": [
+              -2,
+              2
+            ],
+            "depth": [
+              -2,
+              0.2
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "northstarstuff:luna/highlands",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0,
+            "continentalness": [
+              0,
+              2
+            ],
+            "erosion": 0,
+            "weirdness": [
+              -2,
+              2
+            ],
+            "depth": [
+              -2,
+              0.2
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "northstarstuff:luna/huge_crater",
+          "parameters": {
+            "temperature": [
+              -2,
+              2
+            ],
+            "humidity": 1,
+            "continentalness": [
+              -0.38,
+              2
+            ],
+            "erosion": 0,
+            "weirdness": [
+              -2,
+              2
+            ],
+            "depth": [
+              -2,
+              0.2
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "northstarstuff:luna/maria_crater",
+          "parameters": {
+            "temperature": 1,
+            "humidity": [
+              0,
+              1
+            ],
+            "continentalness": [
+              -2,
+              2
+            ],
+            "erosion": 0,
+            "weirdness": [
+              -2,
+              2
+            ],
+            "depth": [
+              -2,
+              0.2
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "northstarstuff:luna/dust_caves",
+          "parameters": {
+            "temperature": [
+              -2,
+              2
+            ],
+            "humidity": 1,
+            "continentalness": [
+              -2,
+              2
+            ],
+            "erosion": 0,
+            "weirdness": [
+              -2,
+              2
+            ],
+            "depth": [
+              0.2,
+              2
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "northstarstuff:luna/ice_caves",
+          "parameters": {
+            "temperature": [
+              -2,
+              2
+            ],
+            "humidity": 0,
+            "continentalness": [
+              -2,
+              2
+            ],
+            "erosion": 0,
+            "weirdness": [
+              -2,
+              -0.25
+            ],
+            "depth": [
+              0.2,
+              2
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "northstarstuff:luna/glowstone_caves",
+          "parameters": {
+            "temperature": [
+              -2,
+              2
+            ],
+            "humidity": 0,
+            "continentalness": [
+              -2,
+              2
+            ],
+            "erosion": 0,
+            "weirdness": [
+              -0.25,
+              0.25
+            ],
+            "depth": [
+              0.2,
+              2
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "northstarstuff:luna/fire_caves",
+          "parameters": {
+            "temperature": [
+              -2,
+              2
+            ],
+            "humidity": 0,
+            "continentalness": [
+              -2,
+              2
+            ],
+            "erosion": 0,
+            "weirdness": [
+              0.25,
+              2
+            ],
+            "depth": [
+              0.2,
+              2
+            ],
+            "offset": 0
+          }
+        }
+      ]
+    },
+    "settings": "northstarstuff:luna"
+  }
+}
