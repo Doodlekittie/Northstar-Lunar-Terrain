@@ -9,7 +9,10 @@
           "biome": "northstarstuff:luna/maria",
           "parameters": {
             "temperature": 0,
-            "humidity": 0,
+            "humidity": [
+              0,
+              1
+            ],
             "continentalness": [
               -2,
               -0.38
@@ -77,7 +80,7 @@
             ],
             "humidity": 1,
             "continentalness": [
-              -2,
+              -0.38,
               2
             ],
             "erosion": 0,
@@ -96,7 +99,10 @@
           "biome": "northstarstuff:luna/maria_crater",
           "parameters": {
             "temperature": 1,
-            "humidity": 0,
+            "humidity": [
+              0,
+              1
+            ],
             "continentalness": [
               -2,
               2

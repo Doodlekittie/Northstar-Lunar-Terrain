@@ -1,29 +1,26 @@
 {
   "type": "northstarstuff:simple_sphere",
   "config": {
-    "probability": 0.1,
+    "probability": 0,
     "replaceable": "#northstarstuff:luna/carver_replaceable",
     "radius": 5,
-    "length": {
+    "length": 30,
+    "y": {
       "type": "minecraft:uniform",
-      "max_inclusive": 150,
-      "min_inclusive": 75
+      "max_inclusive": {
+        "absolute": 180
+      },
+      "min_inclusive": {
+        "above_bottom": 8
+      }
     },
-  "y": {
-    "type": "minecraft:uniform",
-    "max_inclusive": {
-      "absolute": 180
-    },
-    "min_inclusive": {
-      "above_bottom": 8
-    }
-  },
     "lava_level": {
       "above_bottom": 0
     },
-    "yScale": 1
+    "yScale": 0
   },
   "debug_settings": {
+    "debug_mode": false,
     "air_state": {
       "Name": "minecraft:crimson_button",
       "Properties": {

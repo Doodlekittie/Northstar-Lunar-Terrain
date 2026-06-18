@@ -1,0 +1,22 @@
+{
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "northstarstuff:meteor_stone"
+    }
+  ],
+  "results": [
+    {
+      "chance": 0.025,
+      "id": "create:rose_quartz"
+    },
+    {
+      "chance": 0.025,
+      "id": "minecraft:amethyst_shard"
+    },
+    {
+      "chance": 0.025,
+      "id": "create:powdered_obsidian"
+    }
+  ]
+}

@@ -49,15 +49,16 @@ public class NorthstarStuff {
 
 //    // Creates a new Block with the id "northstarstuff:example_block", combining the namespace and path
     public static final DeferredBlock<Block> METEOR_STONE = BLOCKS.registerSimpleBlock("meteor_stone",
-        BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).mapColor(MapColor.DEEPSLATE).sound(SoundType.DEEPSLATE));
+        BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).mapColor(MapColor.DEEPSLATE).sound(SoundType.DEEPSLATE)
+                .destroyTime(1.5f).requiresCorrectToolForDrops());
 
     public static final DeferredBlock<PointedScoriaBlock> POINTED_SCORIA =
         BLOCKS.register("pointed_scoria", registryName -> new PointedScoriaBlock(
-            BlockBehaviour.Properties.ofFullCopy(Blocks.POINTED_DRIPSTONE)
+            BlockBehaviour.Properties.ofFullCopy(Blocks.POINTED_DRIPSTONE).destroyTime(1.5f)
         ));
     public static final DeferredBlock<PointedScorchiaBlock> POINTED_SCORCHIA =
             BLOCKS.register("pointed_scorchia", registryName -> new PointedScorchiaBlock(
-                    BlockBehaviour.Properties.ofFullCopy(Blocks.POINTED_DRIPSTONE)
+                    BlockBehaviour.Properties.ofFullCopy(Blocks.POINTED_DRIPSTONE).destroyTime(1.5f)
             ));
 
 //    // Creates a new BlockItem with the id "northstarstuff:example_block", combining the namespace and path
