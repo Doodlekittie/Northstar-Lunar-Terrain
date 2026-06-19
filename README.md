@@ -1,38 +1,3 @@
 Cheeeeeeeeeeeeeeeeeeeese
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-(Proper readme coming sooo)
+(Proper readme coming soon)
