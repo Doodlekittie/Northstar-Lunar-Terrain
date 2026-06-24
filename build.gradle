@@ -26,7 +26,8 @@ sourceSets.main.resources {
     exclude("src/generated/**/.cache") // datagen cache files
 }
 
-repositories {}
+repositories {
+}
 
 base {
     archivesName = mod_id
@@ -119,6 +120,10 @@ dependencies {
     implementation "com.github.ben-manes.caffeine:caffeine:3.2.4"
     additionalRuntimeClasspath "com.github.ben-manes.caffeine:caffeine:3.2.4"
     jarJar(implementation(group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '3.2.4'))
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

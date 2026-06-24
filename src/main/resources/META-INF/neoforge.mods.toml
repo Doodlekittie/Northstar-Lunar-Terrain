@@ -1,0 +1,39 @@
+modLoader="javafml" #mandatory
+
+loaderVersion="${loader_version_range}" #mandatory
+license="${mod_license}"
+issueTrackerURL="https://github.com/Doodlekittie/Northstar-Lunar-Terrain/issues/"
+
+[[mods]]
+
+modId = "northstarstuff"
+version = "${file.jarVersion}"
+
+displayName = "Northstar Lunar Terrain"
+displayURL = "https://github.com/Doodlekittie/Northstar-Lunar-Terrain"
+logoFile = "logo.png"
+authors = "Doodlekittie"
+description = '''
+Unfinished addon for Northstar Redux that gives the moon completely new terrain, focussing on a more moon-like and varied surface, and a unique and rewarding caving experience.
+'''
+
+[[dependencies.northstarstuff]]
+modId="neoforge"
+type="optional"
+versionRange="[${neo_version},)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.northstarstuff]]
+modId="minecraft"
+type="required"
+versionRange="${minecraft_version_range}"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.northstarstuff]]
+modId="northstar"
+type="required"
+versionRange="[0.5.0,)"
+ordering="AFTER"
+side="BOTH"
